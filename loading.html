@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLATE - Initializing...</title>
+    <!-- Use the existing loader CSS for consistency -->
+    <link rel="stylesheet" href="assets/css/loader.css">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #131720;
+            /* Match loader-overlay background */
+            overflow: hidden;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* Ensure the overlay takes up the whole screen without being absolute if needed, 
+           but the existing CSS already does position: fixed */
+
+        #loading-overlay {
+            background-color: #050b14;
+            /* Slightly darker for standalone page */
+            display: flex !important;
+            /* Force display since it might have loader-hidden logic */
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .loader-content {
+            transform: scale(1.2);
+            /* Make it feel more prominent as a standalone page */
+        }
+
+        #loader-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #00e1ff;
+            /* Cyan accent from dark mode theme */
+            text-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
+        }
+
+        .road {
+            background-image: linear-gradient(to right, #00e1ff 40%, transparent 40%);
+        }
+
+        .vehicle-container svg {
+            fill: #00e1ff;
+            /* Use primary cyan for the vehicles on this page */
+            filter: drop-shadow(0 0 5px rgba(0, 225, 255, 0.3));
+        }
+
+        /* Ambient background glow */
+        .glow-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 225, 255, 0.05) 0%, transparent 70%);
+            z-index: 1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="glow-bg"></div>
+
+    <div id="loading-overlay">
+        <div class="loader-content">
+            <img src="assets/images/logo.png" alt="SLATE Logo" class="loader-logo-main">
+            <p id="loader-text">Initializing System...</p>
+            <div class="road">
+                <!-- Vehicle 1: Truck -->
+                <div class="vehicle-container vehicle-1">
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M503.3 337.2c-7.2-21.6-21.6-36-43.2-43.2l-43.2-14.4V232c0-23.9-19.4-43.2-43.2-43.2H256V96c0-12.7-5.1-24.9-14.1-33.9L208 28.3c-9-9-21.2-14.1-33.9-14.1H48C21.5 14.2 0 35.7 0 62.2V337c0 23.9 19.4 43.2 43.2 43.2H64c0 35.3 28.7 64 64 64s64-28.7 64-64h128c0 35.3 28.7 64 64 64s64-28.7 64-64h17.3c23.9 0 43.2-19.4 43.2-43.2V337.2zM128 401c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm0-192h-88.8v-48H384v48z" />
+                    </svg>
+                </div>
+                <!-- Vehicle 2: Semi-Truck -->
+                <div class="vehicle-container vehicle-2">
+                    <svg viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M624 352h-16V243.9c0-12.7-5.1-24.9-14.1-33.9L494 110.1c-9-9-21.2-14.1-33.9-14.1H416V48c0-26.5-21.5-48-48-48H112C85.5 0 64 21.5 64 48v48H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h16c0 35.3 28.7 64 64 64s64-28.7 64-64h192c0 35.3 28.7 64 64 64s64-28.7 64-64h16c26.5 0 48-21.5 48-48V368c0-8.8-7.2-16-16-16zM128 400c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm384 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zM480 224H128V144h288v48c0 26.5 21.5 48 48 48h16v-16z" />
+                    </svg>
+                </div>
+                <!-- Vehicle 3: Van -->
+                <div class="vehicle-container vehicle-3">
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M503.3 337.2c-7.2-21.6-21.6-36-43.2-43.2l-43.2-14.4V232c0-23.9-19.4-43.2-43.2-43.2H256V96c0-12.7-5.1-24.9-14.1-33.9L208 28.3c-9-9-21.2-14.1-33.9-14.1H48C21.5 14.2 0 35.7 0 62.2V337c0 23.9 19.4 43.2 43.2 43.2H64c0 35.3 28.7 64 64 64s64-28.7 64-64h128c0 35.3 28.7 64 64 64s64-28.7 64-64h17.3c23.9 0 43.2-19.4 43.2-43.2V337.2zM128 401c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm0-192h-88.8v-48H384v48z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logic for dynamic messages and redirect -->
+    <script>
+        (function () {
+            const loaderText = document.getElementById('loader-text');
+
+            const loadingMessages = [
+                "Calibrating Predictive Routes...",
+                "Syncing Real-Time Fleet Data...",
+                "Optimizing Logistics Matrix...",
+                "Engaging Quantum Processor...",
+                "Finalizing Dispatch Protocols..."
+            ];
+
+            let messageIndex = 0;
+
+            // Function to cycle text
+            const cycleText = () => {
+                loaderText.style.opacity = '0';
+                setTimeout(() => {
+                    messageIndex = (messageIndex + 1) % loadingMessages.length;
+                    loaderText.textContent = loadingMessages[messageIndex];
+                    loaderText.style.opacity = '1';
+                }, 500);
+            };
+
+            // Start cycling text
+            loaderText.textContent = loadingMessages[0];
+            const textInterval = setInterval(cycleText, 2000);
+
+            // Redirect to login page after 4 seconds
+            setTimeout(() => {
+                clearInterval(textInterval);
+                // Optional: Fade out entire body before redirect
+                document.body.style.opacity = '0';
+                document.body.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    window.location.href = '/Code/auth/login.php';
+                }, 500);
+            }, 4000);
+        })();
+    </script>
+</body>
+
+</html>
