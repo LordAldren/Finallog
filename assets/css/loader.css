@@ -1,0 +1,112 @@
+/* --- LOADING OVERLAY --- */
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #131720; 
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 0.75s ease, visibility 0.75s ease;
+    opacity: 1;
+    visibility: visible;
+    overflow: hidden; /* Para hindi lumabas ang mga sasakyan sa screen */
+}
+
+#loading-overlay.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-content {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Main logo, mas banayad na animation */
+.loader-logo-main {
+    width: 120px;
+    height: auto;
+    margin-bottom: 2rem;
+    animation: gentlePulse 2s ease-in-out infinite;
+}
+
+/* Kalsada kung saan dadaan ang mga sasakyan */
+.road {
+    width: 150%; /* Mas malapad para makalabas ng screen ang sasakyan */
+    height: 4px;
+    background-image: linear-gradient(to right, #4A6CF7 40%, transparent 40%);
+    background-size: 20px 4px;
+    position: relative;
+    left: -25%; /* I-gitna ang kalsada */
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Container para sa bawat sasakyan at animation nito */
+.vehicle-container {
+    position: absolute;
+    bottom: 5px; /* I-posisyon sa ibabaw ng kalsada */
+    left: -100px; /* Magsimula sa labas ng screen */
+    width: 80px;
+    animation-name: driveAcross;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.vehicle-container svg {
+    width: 100%;
+    height: auto;
+    fill: #E2E8F0; /* Kulay ng mga sasakyan */
+}
+
+/* Iba-ibang animation para mas mukhang totoo */
+.vehicle-1 {
+    animation-duration: 6s;
+    animation-delay: 0s;
+}
+
+.vehicle-2 {
+    animation-duration: 8s;
+    animation-delay: 2s;
+    width: 65px; /* Medyo mas maliit na van */
+}
+
+.vehicle-3 {
+    animation-duration: 7s;
+    animation-delay: 4.5s;
+}
+
+/* Text sa ilalim ng kalsada */
+#loader-text {
+    color: #E2E8F0;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    min-height: 20px; /* Para hindi gumalaw ang layout */
+    transition: opacity 0.5s ease;
+}
+
+/* --- KEYFRAME ANIMATIONS --- */
+@keyframes gentlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes driveAcross {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Tatakbo patawid ng screen at lampas pa para mawala */
+        transform: translateX(calc(400px + 250px)); 
+    }
+}
+
