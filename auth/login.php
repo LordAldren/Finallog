@@ -136,18 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body class="login-page-body">
 
-  <div id="loading-overlay">
-      <div class="loader-content">
 
-
-          <!-- Logo Image Below Truck -->
-          <div class="logo-wrapper-below">
-              <img src="../assets/images/logo.png" class="main-logo-small" alt="SLATE Logo">
-          </div>
-
-
-      </div>
-  </div>
 
   <div class="main-container">
     <div class="login-container">
