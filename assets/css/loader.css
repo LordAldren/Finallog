@@ -5,8 +5,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #131720;
-    /* Dark background as base */
+    background-color: #ffffff;
+    /* Clean white background like reference */
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -17,10 +17,15 @@
     visibility: visible;
 }
 
-/* Light Mode Background override if body has light-mode logic, otherwise default to dark premium feel */
-body:not(.dark-mode) #loading-overlay {
-    background-color: #f8fafc;
-    /* Slate-50 for light mode */
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    #loading-overlay {
+        background-color: #131720;
+    }
+}
+
+body.dark-mode #loading-overlay {
+    background-color: #131720;
 }
 
 #loading-overlay.loader-hidden {
@@ -30,113 +35,172 @@ body:not(.dark-mode) #loading-overlay {
 
 .loader-content {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    max-width: 300px;
+    height: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 2rem;
 }
 
-/* --- CENTER LOGO --- */
-.logo-center {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    z-index: 2;
-    animation: logoPulse 2s ease-in-out infinite;
-    /* Optional: glass effect behind logo */
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
-    padding: 15px;
-    backdrop-filter: blur(5px);
-}
-
-/* --- ORBIT RING --- */
-.orbit-ring {
-    position: absolute;
+/* --- TRUCK ANIMATION --- */
+.truck-wrapper {
     width: 220px;
-    height: 220px;
-    border: 2px dashed rgba(74, 108, 247, 0.3);
-    /* Primary color low opacity */
-    border-radius: 50%;
-    box-sizing: border-box;
+    height: 120px;
+    position: relative;
 }
 
-/* --- ROTATING CONTAINER --- */
-.orbit-container {
-    position: absolute;
-    width: 220px;
-    height: 220px;
-    animation: orbitSpin 4s linear infinite;
-    z-index: 3;
+.truck-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
 }
 
-/* --- TRUCK ICON --- */
-/* The truck sits at the top of the rotating container */
-.truck-orbit-icon {
-    position: absolute;
-    top: -15px;
-    /* Adjust to sit on the line. 220px height -> radius 110px. Top is 0. */
-    left: 50%;
-    transform: translateX(-50%) rotate(90deg);
-    /* Rotate 90deg to face direction of travel (clockwise) */
-    width: 40px;
-    height: auto;
-    fill: #4A6CF7;
-    /* Primary Brand Color */
-    filter: drop-shadow(0 0 5px rgba(74, 108, 247, 0.5));
+/* Truck Lines */
+.truck-body,
+.truck-cab,
+.truck-window {
+    fill: none;
+    stroke: #4A6CF7;
+    /* Brand Blue */
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.3s;
 }
 
-/* --- TEXT BELOW --- */
-.loader-text-container {
-    margin-top: -40px;
-    /* Pull up closer since loader-content is big */
-    text-align: center;
-    z-index: 4;
+/* Dark mode stroke adjustment */
+body.dark-mode .truck-body,
+body.dark-mode .truck-cab,
+body.dark-mode .truck-window,
+body.dark-mode .speed-line,
+body.dark-mode .road-line-segment {
+    stroke: #fff;
 }
 
+/* Speed Lines */
+.speed-lines {
+    animation: speedEffect 1s linear infinite;
+}
+
+.speed-line {
+    stroke: #4A6CF7;
+    stroke-width: 4;
+    stroke-linecap: round;
+    opacity: 0;
+}
+
+/* Wheels */
+.truck-wheel {
+    fill: none;
+    stroke: #4A6CF7;
+    stroke-width: 4;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wheelSpin 0.8s linear infinite;
+}
+
+body.dark-mode .truck-wheel {
+    stroke: #fff;
+}
+
+/* Logo on Truck */
+.truck-logo {
+    width: 60px;
+    height: 40px;
+    x: 65;
+    y: 35;
+    opacity: 0.9;
+}
+
+/* System Name */
 .loader-system-name {
     font-size: 1.5rem;
     font-weight: 800;
     margin: 0;
-    letter-spacing: 3px;
-    color: #E2E8F0;
+    letter-spacing: 2px;
     text-transform: uppercase;
+    color: #1e293b;
     margin-bottom: 0.5rem;
 }
 
-body:not(.dark-mode) .loader-system-name {
-    color: #1e293b;
+body.dark-mode .loader-system-name {
+    color: #fff;
 }
 
 #loader-text {
     font-size: 0.9rem;
-    color: #94a3b8;
+    color: #64748b;
     letter-spacing: 1px;
     min-height: 1.5rem;
+    font-weight: 500;
+}
+
+body.dark-mode #loader-text {
+    color: #94a3b8;
 }
 
 /* --- ANIMATIONS --- */
-@keyframes orbitSpin {
-    from {
+
+/* Bouncing Truck Body */
+.truck-group {
+    animation: truckBump 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes truckBump {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes wheelSpin {
+    0% {
         transform: rotate(0deg);
     }
 
-    to {
+    100% {
         transform: rotate(360deg);
     }
 }
 
-@keyframes logoPulse {
+@keyframes speedEffect {
+    0% {
+        transform: translateX(10px);
+        opacity: 0;
+    }
 
-    0%,
-    100% {
-        transform: scale(1);
+    20% {
         opacity: 1;
     }
 
+    100% {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+}
+
+/* Road moving effect */
+.road-group line {
+    animation: roadMove 1s linear infinite;
+}
+
+@keyframes roadMove {
+    0% {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+
     50% {
-        transform: scale(0.95);
-        opacity: 0.8;
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-40px);
+        opacity: 0;
     }
 }

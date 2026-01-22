@@ -294,29 +294,45 @@ $initial_locations_json = json_encode($initial_locations);
 
 <body>
     <div id="loading-overlay">
-        <!-- Main Graphic Area -->
         <div class="loader-content">
-            <!-- Center Logo -->
-            <img src="assets/images/logo.png" alt="SLATE Logo" class="logo-center">
-            
-            <!-- Static Dashed Ring -->
-            <div class="orbit-ring"></div>
-            
-            <!-- Rotating Container -->
-            <div class="orbit-container">
-                <!-- Truck Icon -->
-                <svg class="truck-orbit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-                    <!-- FontAwesome Truck Icon -->
-                    <path d="M624 352h-16V243.9c0-12.7-5.1-24.9-14.1-33.9L494 110.1c-9-9-21.2-14.1-33.9-14.1H416V48c0-26.5-21.5-48-48-48H112C85.5 0 64 21.5 64 48v48H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h16c0 35.3 28.7 64 64 64s64-28.7 64-64h192c0 35.3 28.7 64 64 64s64-28.7 64-64h16c26.5 0 48-21.5 48-48V368c0-8.8-7.2-16-16-16zM128 400c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm384 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zM480 224H128V144h288v48c0 26.5 21.5 48 48 48h16v-16z"/>
+            <div class="truck-wrapper">
+                <svg class="truck-svg" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg">
+                    <g class="truck-group">
+                        <!-- Speed Lines (Behind) -->
+                        <g class="speed-lines">
+                            <line class="speed-line" x1="10" y1="40" x2="40" y2="40" style="animation-delay: 0s;" />
+                            <line class="speed-line" x1="5" y1="55" x2="35" y2="55" style="animation-delay: 0.2s;" />
+                            <line class="speed-line" x1="10" y1="70" x2="40" y2="70" style="animation-delay: 0.4s;" />
+                        </g>
+
+                        <!-- Truck Structure -->
+                        <!-- Cargo Box -->
+                        <path class="truck-body" d="M60 30 H140 V90 H60 Z" />
+                        <!-- Cab -->
+                        <path class="truck-cab" d="M140 50 H170 L180 90 H140 V50" />
+                        <!-- Window -->
+                        <path class="truck-window" d="M145 55 H165 L170 70 H145 V55" />
+
+                        <!-- LOGO ON TRUCK -->
+                        <image href="assets/images/logo.png" class="truck-logo" x="65" y="32" width="70" height="50" preserveAspectRatio="xMidYMid contain" />
+
+                        <!-- Wheels -->
+                        <circle class="truck-wheel" cx="90" cy="90" r="14" />
+                        <circle class="truck-wheel" cx="160" cy="90" r="14" />
+                    </g>
+                    
+                    <!-- Road Lines -->
+                    <g class="road-group">
+                         <line class="road-line-segment" x1="50" y1="110" x2="90" y2="110" stroke="#4A6CF7" stroke-width="4" stroke-linecap="round" />
+                         <line class="road-line-segment" x1="110" y1="110" x2="160" y2="110" stroke="#4A6CF7" stroke-width="4" stroke-linecap="round" />
+                         <line class="road-line-segment" x1="180" y1="110" x2="210" y2="110" stroke="#4A6CF7" stroke-width="4" stroke-linecap="round" />
+                    </g>
                 </svg>
             </div>
         </div>
         
-        <!-- Text Area -->
-        <div class="loader-text-container">
-            <h1 class="loader-system-name">SLATE LOGISTICS</h1>
-            <p id="loader-text">Initializing System...</p>
-        </div>
+        <h1 class="loader-system-name">SLATE LOGISTICS</h1>
+        <p id="loader-text">Initializing System...</p>
     </div>
 
     <?php include 'includes/sidebar.php'; ?>
