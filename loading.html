@@ -4,67 +4,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SLATE - Initializing...</title>
-    <!-- Use the existing loader CSS for consistency -->
-    <link rel="stylesheet" href="assets/css/loader.css">
+    <title>SLATE | Initializing Logistics Nexus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Roboto+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <style>
-        body,
-        html {
+        :root {
+            --primary: #00e1ff;
+            --accent: #0072ff;
+            --bg-dark: #020617;
+            --glass: rgba(15, 23, 42, 0.7);
+            --border: rgba(0, 225, 255, 0.2);
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
             width: 100%;
             height: 100%;
-            background-color: #131720;
-            /* Match loader-overlay background */
+            background-color: var(--bg-dark);
+            font-family: 'Outfit', sans-serif;
+            color: #fff;
             overflow: hidden;
-            font-family: 'Rajdhani', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Ensure the overlay takes up the whole screen without being absolute if needed, 
-           but the existing CSS already does position: fixed */
-
-        #loading-overlay {
-            background-color: #050b14;
-            /* Slightly darker for standalone page */
-            display: flex !important;
-            /* Force display since it might have loader-hidden logic */
-            opacity: 1 !important;
-            visibility: visible !important;
+        /* Background Layer */
+        .nexus-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.6)),
+                url('assets/images/loading_bg.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            filter: scale(1.1);
+            animation: bgShift 20s infinite alternate ease-in-out;
         }
 
-        .loader-content {
-            transform: scale(1.2);
-            /* Make it feel more prominent as a standalone page */
+        @keyframes bgShift {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                transform: scale(1.1) translate(-20px, -20px);
+            }
         }
 
-        #loader-text {
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: #00e1ff;
-            /* Cyan accent from dark mode theme */
-            text-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
+        /* Glass Container */
+        .loader-card {
+            width: 450px;
+            padding: 3rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(0, 225, 255, 0.1);
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
         }
 
-        .road {
-            background-image: linear-gradient(to right, #00e1ff 40%, transparent 40%);
-        }
-
-        .vehicle-container svg {
-            fill: #00e1ff;
-            /* Use primary cyan for the vehicles on this page */
-            filter: drop-shadow(0 0 5px rgba(0, 225, 255, 0.3));
-        }
-
-        /* Ambient background glow */
-        .glow-bg {
+        /* Decorative Corners */
+        .loader-card::before,
+        .loader-card::after {
+            content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0, 225, 255, 0.05) 0%, transparent 70%);
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary);
+        }
+
+        .loader-card::before {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 12px 0 0 0;
+        }
+
+        .loader-card::after {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 12px 0;
+        }
+
+        .logo-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .logo-container img {
+            width: 100px;
+            filter: drop-shadow(0 0 15px rgba(0, 225, 255, 0.4));
+            animation: logoPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes logoPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 15px rgba(0, 225, 255, 0.4));
+            }
+
+            50% {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 25px rgba(0, 225, 255, 0.7));
+            }
+        }
+
+        .system-status {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            height: 20px;
+            opacity: 0.8;
+        }
+
+        /* Progress Section */
+        .progress-wrapper {
+            margin-bottom: 1rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar-bg {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            box-shadow: 0 0 15px var(--primary);
+            transition: width 0.3s ease-out;
+        }
+
+        .initializing-text {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-style: italic;
+        }
+
+        /* Scanning Line overlay for the whole page */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0.03) 50%,
+                    rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px;
+            z-index: 20;
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+        .data-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 1;
             pointer-events: none;
         }
@@ -72,78 +207,110 @@
 </head>
 
 <body>
-    <div class="glow-bg"></div>
+    <div class="nexus-bg"></div>
+    <div class="scanline"></div>
+    <div class="data-particles" id="particles"></div>
 
-    <div id="loading-overlay">
-        <div class="loader-content">
-            <img src="assets/images/logo.png" alt="SLATE Logo" class="loader-logo-main">
-            <p id="loader-text">Initializing System...</p>
-            <div class="road">
-                <!-- Vehicle 1: Truck -->
-                <div class="vehicle-container vehicle-1">
-                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M503.3 337.2c-7.2-21.6-21.6-36-43.2-43.2l-43.2-14.4V232c0-23.9-19.4-43.2-43.2-43.2H256V96c0-12.7-5.1-24.9-14.1-33.9L208 28.3c-9-9-21.2-14.1-33.9-14.1H48C21.5 14.2 0 35.7 0 62.2V337c0 23.9 19.4 43.2 43.2 43.2H64c0 35.3 28.7 64 64 64s64-28.7 64-64h128c0 35.3 28.7 64 64 64s64-28.7 64-64h17.3c23.9 0 43.2-19.4 43.2-43.2V337.2zM128 401c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm0-192h-88.8v-48H384v48z" />
-                    </svg>
-                </div>
-                <!-- Vehicle 2: Semi-Truck -->
-                <div class="vehicle-container vehicle-2">
-                    <svg viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M624 352h-16V243.9c0-12.7-5.1-24.9-14.1-33.9L494 110.1c-9-9-21.2-14.1-33.9-14.1H416V48c0-26.5-21.5-48-48-48H112C85.5 0 64 21.5 64 48v48H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h16c0 35.3 28.7 64 64 64s64-28.7 64-64h192c0 35.3 28.7 64 64 64s64-28.7 64-64h16c26.5 0 48-21.5 48-48V368c0-8.8-7.2-16-16-16zM128 400c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm384 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zM480 224H128V144h288v48c0 26.5 21.5 48 48 48h16v-16z" />
-                    </svg>
-                </div>
-                <!-- Vehicle 3: Van -->
-                <div class="vehicle-container vehicle-3">
-                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M503.3 337.2c-7.2-21.6-21.6-36-43.2-43.2l-43.2-14.4V232c0-23.9-19.4-43.2-43.2-43.2H256V96c0-12.7-5.1-24.9-14.1-33.9L208 28.3c-9-9-21.2-14.1-33.9-14.1H48C21.5 14.2 0 35.7 0 62.2V337c0 23.9 19.4 43.2 43.2 43.2H64c0 35.3 28.7 64 64 64s64-28.7 64-64h128c0 35.3 28.7 64 64 64s64-28.7 64-64h17.3c23.9 0 43.2-19.4 43.2-43.2V337.2zM128 401c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm0-192h-88.8v-48H384v48z" />
-                    </svg>
-                </div>
+    <div class="loader-card">
+        <div class="logo-container">
+            <img src="assets/images/logo.png" alt="SLATE LOGO">
+        </div>
+
+        <div class="system-status" id="status-text">SYSTEM INITIALIZING...</div>
+
+        <div class="progress-wrapper">
+            <div class="progress-label">
+                <span>Network Integrity</span>
+                <span id="percent">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-fill" id="bar"></div>
             </div>
         </div>
+
+        <div class="initializing-text">SLATE v2.0 - Secure Freight Management</div>
     </div>
 
-    <!-- Logic for dynamic messages and redirect -->
     <script>
-        (function () {
-            const loaderText = document.getElementById('loader-text');
+        const statusText = document.getElementById('status-text');
+        const percentText = document.getElementById('percent');
+        const bar = document.getElementById('bar');
 
-            const loadingMessages = [
-                "Calibrating Predictive Routes...",
-                "Syncing Real-Time Fleet Data...",
-                "Optimizing Logistics Matrix...",
-                "Engaging Quantum Processor...",
-                "Finalizing Dispatch Protocols..."
-            ];
+        const messages = [
+            "Syncing Fleet Protocols...",
+            "Encrypting Data Streams...",
+            "Optimizing Route Matrix...",
+            "Authenticating Sessions...",
+            "Finalizing Nexus Link..."
+        ];
 
-            let messageIndex = 0;
+        let progress = 0;
+        let msgIndex = 0;
 
-            // Function to cycle text
-            const cycleText = () => {
-                loaderText.style.opacity = '0';
+        const updateLoader = () => {
+            if (progress >= 100) {
+                progress = 100;
+                percentText.textContent = "100%";
+                bar.style.width = "100%";
+                statusText.textContent = "ACCESS GRANTED";
+                statusText.style.color = "#00ff9d";
+
                 setTimeout(() => {
-                    messageIndex = (messageIndex + 1) % loadingMessages.length;
-                    loaderText.textContent = loadingMessages[messageIndex];
-                    loaderText.style.opacity = '1';
-                }, 500);
-            };
+                    document.body.style.opacity = '0';
+                    document.body.style.transition = 'opacity 0.8s ease';
+                    setTimeout(() => {
+                        window.location.href = '/code/auth/login.php';
+                    }, 800);
+                }, 1000);
+                return;
+            }
 
-            // Start cycling text
-            loaderText.textContent = loadingMessages[0];
-            const textInterval = setInterval(cycleText, 2000);
+            progress += Math.random() * 5 + 1;
+            if (progress > 100) progress = 100;
 
-            // Redirect to login page after 4 seconds
-            setTimeout(() => {
-                clearInterval(textInterval);
-                // Optional: Fade out entire body before redirect
-                document.body.style.opacity = '0';
-                document.body.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => {
-                    window.location.href = '/Code/auth/login.php';
-                }, 500);
-            }, 4000);
-        })();
+            percentText.textContent = Math.floor(progress) + "%";
+            bar.style.width = progress + "%";
+
+            // Update status text periodically
+            if (Math.floor(progress) % 20 === 0 && msgIndex < messages.length - 1) {
+                msgIndex = Math.min(Math.floor(progress / 20), messages.length - 1);
+                statusText.textContent = messages[msgIndex];
+            }
+
+            setTimeout(updateLoader, Math.random() * 150 + 50);
+        };
+
+        // Create simple background particles
+        const createParticles = () => {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.style.position = 'absolute';
+                p.style.width = '2px';
+                p.style.height = '2px';
+                p.style.background = '#00e1ff';
+                p.style.opacity = Math.random() * 0.5;
+                p.style.top = Math.random() * 100 + '%';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.borderRadius = '50%';
+
+                p.animate([
+                    { transform: 'translateY(0)', opacity: 0 },
+                    { transform: 'translateY(-100px)', opacity: p.style.opacity },
+                    { transform: 'translateY(-200px)', opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    iterations: Infinity,
+                    delay: Math.random() * 2000
+                });
+                container.appendChild(p);
+            }
+        };
+
+        window.onload = () => {
+            createParticles();
+            setTimeout(updateLoader, 500);
+        };
     </script>
 </body>
 
