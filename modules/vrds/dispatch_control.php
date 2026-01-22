@@ -173,6 +173,45 @@ $locations_json = json_encode($locations);
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <style>
+        /* --- PREMIUM FORM STYLES --- */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border-radius: 4px;
+            font-family: var(--font-data);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background: rgba(0, 114, 255, 0.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 114, 255, 0.2);
+            outline: none;
+        }
+
+        /* Ensure select options have a dark background so they are readable */
+        .form-control option {
+            background-color: var(--bg-panel);
+            color: var(--text-main);
+        }
+
         /* --- CENTERED MODAL STYLES --- */
         .modal {
             display: none;
