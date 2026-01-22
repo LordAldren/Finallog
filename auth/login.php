@@ -138,15 +138,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <div id="loading-overlay">
       <div class="loader-content">
-          <!-- Logo Section with Speed Lines -->
-          <div class="logo-wrapper">
-              <div class="speed-lines-container">
-                  <div class="speed-dash dash-1"></div>
-                  <div class="speed-dash dash-2"></div>
-                  <div class="speed-dash dash-3"></div>
-                  <div class="speed-dash dash-4"></div>
-              </div>
-              <img src="../assets/images/logo.png" class="main-logo" alt="SLATE Logo">
+          <!-- Driving Truck Animation -->
+          <div class="truck-wrapper">
+               <svg class="truck-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                  <g class="truck-group">
+                      <!-- Speed Lines -->
+                      <g class="speed-lines">
+                          <line x1="10" y1="45" x2="40" y2="45" />
+                          <line x1="0" y1="60" x2="35" y2="60" />
+                          <line x1="10" y1="75" x2="40" y2="75" />
+                      </g>
+                      
+                      <!-- Truck Body -->
+                      <path class="truck-body" d="M60 30 H140 V90 H60 Z" />
+                      <path class="truck-cab" d="M140 50 H170 L180 90 H140 V50" />
+                      <path class="truck-window" d="M145 55 H165 L170 70 H145 V55" />
+
+                      <!-- Wheels -->
+                      <circle class="truck-wheel" cx="90" cy="90" r="14" />
+                      <circle class="truck-wheel" cx="160" cy="90" r="14" />
+                  </g>
+                  <!-- Road -->
+                  <g class="road-group">
+                      <line class="road-line-segment" x1="50" y1="108" x2="190" y2="108" />
+                  </g>
+              </svg>
+          </div>
+
+          <!-- Logo Image Below Truck -->
+          <div class="logo-wrapper-below">
+              <img src="../assets/images/logo.png" class="main-logo-small" alt="SLATE Logo">
           </div>
 
           <!-- Brand Text -->

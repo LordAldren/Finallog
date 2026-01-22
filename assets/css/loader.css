@@ -38,99 +38,125 @@
     z-index: 10;
 }
 
-/* --- LOGO WRAPPER with Speed Effect --- */
-.logo-wrapper {
-    position: relative;
+/* --- DRIVING TRUCK ANIMATION --- */
+.truck-wrapper {
+    width: 200px;
+    height: 120px;
     margin-bottom: 2rem;
+    position: relative;
+}
+
+.truck-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* Truck Body - White outlines for Dark Mode */
+.truck-body,
+.truck-cab,
+.truck-window {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+}
+
+.truck-window {
+    stroke: var(--brand-cyan);
+    /* Cyan window accent */
+}
+
+/* Wheels */
+.truck-wheel {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 4;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wheelSpin 0.6s linear infinite;
+}
+
+/* Speed Lines (SVG) */
+.speed-lines line {
+    animation: speedLineSVG 0.8s linear infinite;
+    stroke: var(--brand-cyan);
+    /* Cyan Speed Lines */
+    stroke-width: 4;
+    stroke-linecap: round;
+    opacity: 0;
+}
+
+.speed-lines line:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.speed-lines line:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.speed-lines line:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* Road Lines (SVG) */
+.road-group .road-line-segment {
+    stroke: var(--brand-blue);
+    stroke-width: 4;
+    stroke-linecap: round;
+    animation: roadMove 0.8s linear infinite;
+}
+
+/* Bouncing */
+.truck-group {
+    animation: truckBounce 0.6s ease-in-out infinite alternate;
+}
+
+/* --- LOGO & TEXT --- */
+/* Wrapper for Logo below truck */
+.logo-wrapper-below {
+    margin-bottom: 1.5rem;
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 
-.main-logo {
-    width: 180px;
-    /* Large Logo */
+.main-logo-small {
+    width: 120px;
     height: auto;
     object-fit: contain;
-    z-index: 5;
-    filter: drop-shadow(0 0 30px rgba(74, 108, 247, 0.4));
-    animation: gentleSurge 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(74, 108, 247, 0.4));
 }
 
-/* Speed Lines (CSS Shapes) */
-.speed-lines-container {
-    position: absolute;
-    left: -40px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100px;
-    height: 100%;
-    z-index: 1;
-}
-
-.speed-dash {
-    height: 4px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-    margin-bottom: 12px;
-    border-radius: 2px;
-    opacity: 0;
-    animation: dashMove 1s linear infinite;
-}
-
-.dash-1 {
-    width: 60px;
-    animation-delay: 0.1s;
-    transform: translateX(20px);
-}
-
-.dash-2 {
-    width: 90px;
-    height: 3px;
-    animation-delay: 0.3s;
-    transform: translateX(-10px);
-}
-
-.dash-3 {
-    width: 50px;
-    animation-delay: 0.0s;
-    transform: translateX(30px);
-}
-
-.dash-4 {
-    width: 70px;
-    height: 2px;
-    animation-delay: 0.5s;
-    transform: translateX(10px);
-}
-
-/* --- TEXT ELEMENTS --- */
 .brand-text {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
 }
 
 .slate-title {
     font-family: 'Montserrat', sans-serif;
-    font-size: 3.5rem;
+    font-size: 2.5rem;
+    /* Slightly smaller to fit under truck */
     font-weight: 900;
     color: #ffffff;
     margin: 0;
     font-style: italic;
-    /* Speed look */
-    letter-spacing: -2px;
+    letter-spacing: -1px;
     line-height: 1;
     text-transform: uppercase;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
 .slate-subtitle {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--brand-cyan);
+    /* Accent color */
     margin: 0;
     margin-top: 5px;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     opacity: 0.9;
 }
@@ -172,35 +198,55 @@
 }
 
 /* --- ANIMATIONS --- */
-@keyframes dashMove {
+@keyframes truckBounce {
     0% {
-        transform: translateX(50px);
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes wheelSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes speedLineSVG {
+    0% {
+        transform: translateX(10px);
         opacity: 0;
     }
 
     20% {
-        opacity: 0.8;
-    }
-
-    50% {
-        opacity: 0.8;
+        opacity: 1;
     }
 
     100% {
-        transform: translateX(-100px);
+        transform: translateX(-20px);
         opacity: 0;
     }
 }
 
-@keyframes gentleSurge {
-
-    0%,
-    100% {
-        transform: scale(1);
+@keyframes roadMove {
+    0% {
+        transform: translateX(20px);
+        opacity: 0;
     }
 
     50% {
-        transform: scale(1.02);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-40px);
+        opacity: 0;
     }
 }
 
