@@ -1,10 +1,11 @@
-/* --- SYSTEM LOADING OVERLAY --- */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=JetBrains+Mono:wght@400&display=swap');
+/* --- HIGH-TECH CYBER TRUCK LOADER --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
 
 :root {
-    --brand-blue: #4A6CF7;
-    --brand-cyan: #00f0ff;
-    --bg-dark: #0f1218;
+    --neon-cyan: #00f0ff;
+    --neon-blue: #4A6CF7;
+    --bg-dark: #050b14;
+    --tech-surface: rgba(10, 25, 47, 0.9);
 }
 
 #loading-overlay {
@@ -14,6 +15,12 @@
     width: 100%;
     height: 100%;
     background-color: var(--bg-dark);
+    /* Sci-Fi Grid Background */
+    background-image:
+        linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, rgba(74, 108, 247, 0.1) 0%, transparent 60%);
+    background-size: 40px 40px, 40px 40px, 100% 100%;
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -38,12 +45,14 @@
     z-index: 10;
 }
 
-/* --- DRIVING TRUCK ANIMATION --- */
+/* --- CYBER TRUCK ANIMATION --- */
 .truck-wrapper {
-    width: 200px;
-    height: 120px;
-    margin-bottom: 2rem;
+    width: 220px;
+    height: 140px;
+    margin-bottom: 1rem;
     position: relative;
+    /* Holographic Projection Base */
+    filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.2));
 }
 
 .truck-svg {
@@ -52,41 +61,46 @@
     overflow: visible;
 }
 
-/* Truck Body - White outlines for Dark Mode */
+/* Neon Truck Lines */
 .truck-body,
 .truck-cab,
 .truck-window {
     fill: none;
-    stroke: #ffffff;
-    stroke-width: 4;
+    stroke: var(--neon-cyan);
+    stroke-width: 3;
     stroke-linecap: round;
     stroke-linejoin: round;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+    transition: all 0.3s;
+    /* Neon Glow */
+    filter: drop-shadow(0 0 5px var(--neon-cyan));
+    opacity: 0.9;
 }
 
+/* Window Highlight */
 .truck-window {
-    stroke: var(--brand-cyan);
-    /* Cyan window accent */
+    stroke: #fff;
+    fill: rgba(0, 240, 255, 0.1);
 }
 
 /* Wheels */
 .truck-wheel {
     fill: none;
-    stroke: #ffffff;
-    stroke-width: 4;
+    stroke: var(--neon-blue);
+    stroke-width: 3;
     transform-box: fill-box;
     transform-origin: center;
     animation: wheelSpin 0.6s linear infinite;
+    filter: drop-shadow(0 0 5px var(--neon-blue));
 }
 
-/* Speed Lines (SVG) */
+/* Speed Lines (Laser Trails) */
 .speed-lines line {
-    animation: speedLineSVG 0.8s linear infinite;
-    stroke: var(--brand-cyan);
-    /* Cyan Speed Lines */
-    stroke-width: 4;
+    animation: speedLaser 0.8s linear infinite;
+    stroke: #fff;
+    stroke-width: 3;
     stroke-linecap: round;
     opacity: 0;
+    filter: drop-shadow(0 0 8px #fff);
 }
 
 .speed-lines line:nth-child(1) {
@@ -94,93 +108,100 @@
 }
 
 .speed-lines line:nth-child(2) {
-    animation-delay: 0.2s;
+    animation-delay: 0.15s;
 }
 
 .speed-lines line:nth-child(3) {
-    animation-delay: 0.4s;
+    animation-delay: 0.3s;
 }
 
-/* Road Lines (SVG) */
+/* Road Lines (Digital Path) */
 .road-group .road-line-segment {
-    stroke: var(--brand-blue);
+    stroke: var(--neon-blue);
     stroke-width: 4;
     stroke-linecap: round;
     animation: roadMove 0.8s linear infinite;
+    opacity: 0.5;
 }
 
 /* Bouncing */
 .truck-group {
-    animation: truckBounce 0.6s ease-in-out infinite alternate;
+    animation: truckHover 1.2s ease-in-out infinite alternate;
 }
 
-/* --- LOGO & TEXT --- */
-/* Wrapper for Logo below truck */
+/* --- LOGO & BRANDING --- */
 .logo-wrapper-below {
-    margin-bottom: 1.5rem;
-    display: flex;
-    justify-content: center;
+    margin-bottom: 2rem;
+    position: relative;
 }
 
+/* Logo Hologram Effect */
 .main-logo-small {
-    width: 120px;
+    width: 140px;
     height: auto;
     object-fit: contain;
-    filter: drop-shadow(0 0 15px rgba(74, 108, 247, 0.4));
+    filter: drop-shadow(0 0 20px rgba(74, 108, 247, 0.5));
+    animation: logoGlow 3s ease-in-out infinite;
 }
 
 .brand-text {
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
 }
 
+/* Tech Text Styling */
 .slate-title {
     font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem;
-    /* Slightly smaller to fit under truck */
+    font-size: 2.8rem;
     font-weight: 900;
-    color: #ffffff;
+    color: #fff;
     margin: 0;
     font-style: italic;
     letter-spacing: -1px;
-    line-height: 1;
     text-transform: uppercase;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    /* Neon Text Shadow */
+    text-shadow: 0 0 10px rgba(74, 108, 247, 0.8), 0 0 20px rgba(0, 240, 255, 0.4);
 }
 
 .slate-subtitle {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
+    /* Coding Font */
     font-size: 1rem;
     font-weight: 700;
-    color: var(--brand-cyan);
-    /* Accent color */
-    margin: 0;
+    color: var(--neon-cyan);
     margin-top: 5px;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     text-transform: uppercase;
-    opacity: 0.9;
+    text-shadow: 0 0 8px var(--neon-cyan);
 }
 
-/* --- LOADING STATUS --- */
+/* --- STATUS & HUD --- */
 .loading-status {
-    width: 250px;
+    width: 280px;
     text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 4px;
+    /* HUD Corner Effects using Box Shadow */
+    box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.05);
 }
 
 #loader-text {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    color: #9ca3af;
+    color: #a0aab5;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 10px;
-    min-height: 1rem;
+    margin-bottom: 12px;
 }
 
+/* Cyber Progress Bar */
 .progress-line-bg {
     width: 100%;
-    height: 3px;
-    background: #1f2937;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
     border-radius: 2px;
@@ -192,19 +213,21 @@
     left: 0;
     width: 30%;
     height: 100%;
-    background: linear-gradient(90deg, var(--brand-cyan), var(--brand-blue));
-    box-shadow: 0 0 10px var(--brand-blue);
-    animation: loadingScan 1.5s ease-in-out infinite;
+    background: var(--neon-cyan);
+    box-shadow: 0 0 15px var(--neon-cyan);
+    animation: cyberLoad 2s cubic-bezier(0.23, 1, 0.32, 1) infinite;
 }
 
 /* --- ANIMATIONS --- */
-@keyframes truckBounce {
+@keyframes truckHover {
     0% {
         transform: translateY(0);
+        filter: drop-shadow(0 0 5px var(--neon-cyan));
     }
 
     100% {
-        transform: translateY(-3px);
+        transform: translateY(-5px);
+        filter: drop-shadow(0 0 15px var(--neon-cyan));
     }
 }
 
@@ -218,47 +241,63 @@
     }
 }
 
-@keyframes speedLineSVG {
+@keyframes speedLaser {
     0% {
-        transform: translateX(10px);
+        transform: translateX(20px);
         opacity: 0;
+        width: 0;
     }
 
     20% {
         opacity: 1;
+        width: 40px;
     }
 
     100% {
-        transform: translateX(-20px);
+        transform: translateX(-60px);
         opacity: 0;
+        width: 0;
     }
 }
 
 @keyframes roadMove {
     0% {
-        transform: translateX(20px);
+        transform: translateX(30px);
         opacity: 0;
     }
 
-    50% {
+    30% {
         opacity: 1;
     }
 
     100% {
-        transform: translateX(-40px);
+        transform: translateX(-50px);
         opacity: 0;
     }
 }
 
-@keyframes loadingScan {
-    0% {
-        left: -40%;
-        width: 40%;
+@keyframes logoGlow {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 15px rgba(74, 108, 247, 0.4));
+        transform: scale(1);
     }
 
     50% {
-        left: 30%;
-        width: 60%;
+        filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.6));
+        transform: scale(1.02);
+    }
+}
+
+@keyframes cyberLoad {
+    0% {
+        left: -50%;
+        width: 30%;
+    }
+
+    50% {
+        width: 80%;
     }
 
     100% {
