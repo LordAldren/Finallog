@@ -296,6 +296,12 @@ $initial_locations_json = json_encode($initial_locations);
     <div id="loading-overlay">
         <div class="loader-content">
             <div class="scanner-container">
+                <!-- Targeting Brackets -->
+                <div class="scanner-bracket bracket-tl"></div>
+                <div class="scanner-bracket bracket-tr"></div>
+                <div class="scanner-bracket bracket-bl"></div>
+                <div class="scanner-bracket bracket-br"></div>
+
                 <!-- Rings -->
                 <div class="scan-ring ring-1"></div>
                 <div class="scan-ring ring-2"></div>
