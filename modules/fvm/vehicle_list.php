@@ -179,11 +179,51 @@ $params_grid['view'] = 'grid';
             letter-spacing: 1px;
         }
 
+        /* ... existing styles ... */
         .summary-value {
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--text-main);
             font-family: var(--font-data);
+        }
+
+        /* --- MODAL STYLES (Center Popup) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-panel);
+            margin: 0;
+            padding: 2rem;
+            border: var(--border-tech);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            
+            /* Center positioning */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .modal h2 {
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
         }
     </style>
 </head>
@@ -444,11 +484,11 @@ $params_grid['view'] = 'grid';
             const viewVehicleBody = document.getElementById('viewVehicleBody');
 
             // Close modal handlers
-            document.querySelectorAll('.modal').forEach(modal => {
-                const closeBtn = modal.querySelector('.close-button');
-                const cancelBtn = modal.querySelector('.cancelBtn');
-                if (closeBtn) { closeBtn.addEventListener('click', () => modal.style.display = 'none'); }
-                if (cancelBtn) { cancelBtn.addEventListener('click', () => modal.style.display = 'none'); }
+            // Close modal handlers
+            window.addEventListener('click', (e) => {
+                if (e.target === viewVehicleModal) {
+                    viewVehicleModal.style.display = 'none';
+                }
             });
 
             // View Button Handler
