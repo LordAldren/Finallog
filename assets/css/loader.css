@@ -1,14 +1,10 @@
-/* --- HIGH-TECH LOADING OVERLAY --- */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+/* --- SYSTEM LOADING OVERLAY --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=JetBrains+Mono:wght@400&display=swap');
 
 :root {
-    --tech-primary: #00f0ff;
-    /* Cyan Neon */
-    --tech-secondary: #4A6CF7;
-    /* SLATE Blue */
-    --tech-bg: #030712;
-    /* Deep Dark Blue/Black */
-    --tech-surface: rgba(17, 24, 39, 0.9);
+    --brand-blue: #4A6CF7;
+    --brand-cyan: #00f0ff;
+    --bg-dark: #0f1218;
 }
 
 #loading-overlay {
@@ -17,13 +13,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--tech-bg);
-    background-image:
-        radial-gradient(circle at 50% 50%, rgba(74, 108, 247, 0.15) 0%, transparent 60%),
-        linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
-    background-size: 100% 100%, 50px 50px, 50px 50px;
-    /* Enhanced Grid */
+    background-color: var(--bg-dark);
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -32,7 +22,6 @@
     transition: opacity 0.5s ease, visibility 0.5s ease;
     opacity: 1;
     visibility: visible;
-    font-family: 'JetBrains Mono', monospace;
 }
 
 #loading-overlay.loader-hidden {
@@ -49,254 +38,185 @@
     z-index: 10;
 }
 
-/* --- SCANNER HUD --- */
-.scanner-container {
+/* --- LOGO WRAPPER with Speed Effect --- */
+.logo-wrapper {
     position: relative;
-    width: 320px;
-    /* Increased size */
-    height: 320px;
+    margin-bottom: 2rem;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+}
+
+.main-logo {
+    width: 180px;
+    /* Large Logo */
+    height: auto;
+    object-fit: contain;
+    z-index: 5;
+    filter: drop-shadow(0 0 30px rgba(74, 108, 247, 0.4));
+    animation: gentleSurge 2s ease-in-out infinite;
+}
+
+/* Speed Lines (CSS Shapes) */
+.speed-lines-container {
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100px;
+    height: 100%;
+    z-index: 1;
+}
+
+.speed-dash {
+    height: 4px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    margin-bottom: 12px;
+    border-radius: 2px;
+    opacity: 0;
+    animation: dashMove 1s linear infinite;
+}
+
+.dash-1 {
+    width: 60px;
+    animation-delay: 0.1s;
+    transform: translateX(20px);
+}
+
+.dash-2 {
+    width: 90px;
+    height: 3px;
+    animation-delay: 0.3s;
+    transform: translateX(-10px);
+}
+
+.dash-3 {
+    width: 50px;
+    animation-delay: 0.0s;
+    transform: translateX(30px);
+}
+
+.dash-4 {
+    width: 70px;
+    height: 2px;
+    animation-delay: 0.5s;
+    transform: translateX(10px);
+}
+
+/* --- TEXT ELEMENTS --- */
+.brand-text {
+    text-align: center;
     margin-bottom: 3rem;
 }
 
-/* Central Focus Target Background */
-.scanner-container::after {
-    content: '';
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    border: 1px dashed rgba(0, 240, 255, 0.2);
-    border-radius: 50%;
-    animation: pulseTarget 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Logo in center */
-.scanner-logo {
-    width: 160px;
-    /* Increased Logo Size */
-    height: 160px;
-    object-fit: contain;
-    z-index: 10;
-    filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.4));
-    animation: logoHolo 4s infinite ease-in-out;
-}
-
-/* Targeting Brackets (New Animation) */
-.scanner-bracket {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border: 3px solid var(--tech-primary);
-    transition: all 0.5s ease;
-    box-shadow: 0 0 10px var(--tech-primary);
-    opacity: 0.8;
-}
-
-.bracket-tl {
-    top: 0;
-    left: 0;
-    border-right: none;
-    border-bottom: none;
-    animation: bracketIn 1s ease-out forwards;
-}
-
-.bracket-tr {
-    top: 0;
-    right: 0;
-    border-left: none;
-    border-bottom: none;
-    animation: bracketIn 1s ease-out forwards;
-}
-
-.bracket-bl {
-    bottom: 0;
-    left: 0;
-    border-right: none;
-    border-top: none;
-    animation: bracketIn 1s ease-out forwards;
-}
-
-.bracket-br {
-    bottom: 0;
-    right: 0;
-    border-left: none;
-    border-top: none;
-    animation: bracketIn 1s ease-out forwards;
-}
-
-/* Rings */
-.scan-ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid transparent;
-}
-
-.ring-1 {
-    width: 100%;
-    height: 100%;
-    border: 1px solid rgba(0, 240, 255, 0.3);
-    border-top: 3px solid var(--tech-primary);
-    border-bottom: 3px solid var(--tech-primary);
-    animation: spin 4s linear infinite;
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
-}
-
-.ring-2 {
-    width: 85%;
-    height: 85%;
-    border-left: 4px solid var(--tech-secondary);
-    border-right: 4px solid var(--tech-secondary);
-    opacity: 0.7;
-    animation: spinReverse 6s linear infinite;
-}
-
-.ring-3 {
-    width: 115%;
-    height: 115%;
-    border: 1px dashed rgba(255, 255, 255, 0.15);
-    animation: spin 12s linear infinite;
-}
-
-/* Scanning Line (Radar Sweep) */
-.scan-line {
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background: var(--tech-primary);
-    box-shadow: 0 0 20px 2px var(--tech-primary);
-    top: 50%;
-    left: 0;
-    animation: scanVertical 2s ease-in-out infinite alternate;
-    z-index: 11;
-    opacity: 0.6;
-}
-
-/* --- TEXT UI --- */
-.loading-text-wrapper {
-    text-align: center;
-    position: relative;
-    padding: 1rem 4rem;
-    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.05), transparent);
-    border-top: 1px solid rgba(0, 240, 255, 0.3);
-    border-bottom: 1px solid rgba(0, 240, 255, 0.3);
-}
-
-.loader-system-name {
-    font-size: 1.8rem;
-    /* Larger Text */
-    font-weight: 800;
+.slate-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #ffffff;
     margin: 0;
-    margin-bottom: 0.5rem;
-    letter-spacing: 4px;
-    color: #fff;
+    font-style: italic;
+    /* Speed look */
+    letter-spacing: -2px;
+    line-height: 1;
     text-transform: uppercase;
-    text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.slate-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    margin-top: 5px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+/* --- LOADING STATUS --- */
+.loading-status {
+    width: 250px;
+    text-align: center;
 }
 
 #loader-text {
-    font-size: 1rem;
-    color: var(--tech-primary);
-    letter-spacing: 2px;
-    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #9ca3af;
     text-transform: uppercase;
-    animation: blinkText 1s infinite alternate;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    min-height: 1rem;
+}
+
+.progress-line-bg {
+    width: 100%;
+    height: 3px;
+    background: #1f2937;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.progress-line-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--brand-cyan), var(--brand-blue));
+    box-shadow: 0 0 10px var(--brand-blue);
+    animation: loadingScan 1.5s ease-in-out infinite;
 }
 
 /* --- ANIMATIONS --- */
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
+@keyframes dashMove {
+    0% {
+        transform: translateX(50px);
+        opacity: 0;
     }
 
-    to {
-        transform: rotate(360deg);
+    20% {
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateX(-100px);
+        opacity: 0;
     }
 }
 
-@keyframes spinReverse {
-    from {
-        transform: rotate(360deg);
-    }
-
-    to {
-        transform: rotate(0deg);
-    }
-}
-
-@keyframes logoHolo {
+@keyframes gentleSurge {
 
     0%,
     100% {
-        opacity: 1;
         transform: scale(1);
-        filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.6));
     }
 
     50% {
-        opacity: 0.9;
-        transform: scale(1.05);
-        filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.8));
+        transform: scale(1.02);
     }
 }
 
-@keyframes scanVertical {
+@keyframes loadingScan {
     0% {
-        transform: translateY(-150px);
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    90% {
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(150px);
-        opacity: 0;
-    }
-}
-
-@keyframes bracketIn {
-    0% {
-        width: 0;
-        height: 0;
-        opacity: 0;
-    }
-
-    100% {
-        width: 40px;
-        height: 40px;
-        opacity: 0.8;
-    }
-}
-
-@keyframes blinkText {
-    0% {
-        opacity: 0.6;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes pulseTarget {
-    0% {
-        transform: scale(0.8);
-        opacity: 0.2;
+        left: -40%;
+        width: 40%;
     }
 
     50% {
-        opacity: 0.5;
+        left: 30%;
+        width: 60%;
     }
 
     100% {
-        transform: scale(1.2);
-        opacity: 0;
+        left: 100%;
+        width: 10%;
     }
 }

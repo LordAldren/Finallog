@@ -295,37 +295,29 @@ $initial_locations_json = json_encode($initial_locations);
 <body>
     <div id="loading-overlay">
         <div class="loader-content">
-            <div class="scanner-container">
-                <!-- Targeting Brackets -->
-                <div class="scanner-bracket bracket-tl"></div>
-                <div class="scanner-bracket bracket-tr"></div>
-                <div class="scanner-bracket bracket-bl"></div>
-                <div class="scanner-bracket bracket-br"></div>
-
-                <!-- Rings -->
-                <div class="scan-ring ring-1"></div>
-                <div class="scan-ring ring-2"></div>
-                <div class="scan-ring ring-3"></div>
-                
-                <!-- Logo -->
-                <img src="assets/images/logo.png" class="scanner-logo" alt="SLATE Logo" />
-                
-                <!-- Scan Effect Overlay -->
-                <div class="scan-line"></div>
-                
-                <!-- Particles -->
-                <div class="tech-particles">
-                    <div class="tech-particle tp-1"></div>
-                    <div class="tech-particle tp-2"></div>
-                    <div class="tech-particle tp-3"></div>
+            <!-- Logo Section with Speed Lines -->
+            <div class="logo-wrapper">
+                <div class="speed-lines-container">
+                    <div class="speed-dash dash-1"></div>
+                    <div class="speed-dash dash-2"></div>
+                    <div class="speed-dash dash-3"></div>
+                    <div class="speed-dash dash-4"></div>
                 </div>
+                <img src="assets/images/logo.png" class="main-logo" alt="SLATE Logo">
             </div>
-            
-            <div class="loading-text-wrapper">
-                <h1 class="loader-system-name">SLATE LOGISTICS</h1>
-                <p id="loader-text">INITIALIZING...</p>
-                <!-- Progress Bar -->
-                <div class="tech-progress-bar"><div class="tech-progress-fill"></div></div>
+
+            <!-- Brand Text -->
+            <div class="brand-text">
+                <h1 class="slate-title">SLATE</h1>
+                <h2 class="slate-subtitle">SLATE LOGISTICS</h2>
+            </div>
+
+            <!-- Status & Progress -->
+            <div class="loading-status">
+                <p id="loader-text">CALIBRATING PREDICTIVE ROUTES...</p>
+                <div class="progress-line-bg">
+                    <div class="progress-line-fill"></div>
+                </div>
             </div>
         </div>
     </div>
