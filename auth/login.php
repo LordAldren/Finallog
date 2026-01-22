@@ -139,43 +139,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div id="loading-overlay">
       <div class="loader-content">
           <div class="truck-wrapper">
-              <svg class="truck-svg" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg">
+               <svg class="truck-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
                   <g class="truck-group">
-                      <!-- Speed Lines (Behind) -->
+                      <!-- Speed Lines -->
                       <g class="speed-lines">
-                          <line class="speed-line" x1="10" y1="40" x2="40" y2="40" style="animation-delay: 0s;" />
-                          <line class="speed-line" x1="5" y1="55" x2="35" y2="55" style="animation-delay: 0.2s;" />
-                          <line class="speed-line" x1="10" y1="70" x2="40" y2="70" style="animation-delay: 0.4s;" />
+                          <line x1="10" y1="45" x2="40" y2="45" />
+                          <line x1="0" y1="60" x2="35" y2="60" />
+                          <line x1="10" y1="75" x2="40" y2="75" />
                       </g>
-
-                      <!-- Truck Structure -->
-                      <!-- Cargo Box -->
-                      <path class="truck-body" d="M60 30 H140 V90 H60 Z" />
-                      <!-- Cab -->
-                      <path class="truck-cab" d="M140 50 H170 L180 90 H140 V50" />
-                      <!-- Window -->
-                      <path class="truck-window" d="M145 55 H165 L170 70 H145 V55" />
-
-                      <!-- LOGO ON TRUCK (Relative path for login) -->
-                      <image href="../assets/images/logo.png" class="truck-logo" x="65" y="32" width="70" height="50" preserveAspectRatio="xMidYMid contain" />
+                      
+                      <!-- Truck Body -->
+                      <path class="truck-body" d="M60 30 H140 V90 H60 Z" /> <!-- Box -->
+                      <path class="truck-cab" d="M140 50 H170 L180 90 H140 V50" /> <!-- Front -->
+                      <path class="truck-window" d="M145 55 H165 L170 70 H145 V55" /> <!-- Window -->
 
                       <!-- Wheels -->
                       <circle class="truck-wheel" cx="90" cy="90" r="14" />
                       <circle class="truck-wheel" cx="160" cy="90" r="14" />
                   </g>
-                  
-                  <!-- Road Lines -->
+                  <!-- Road -->
                   <g class="road-group">
-                       <line class="road-line-segment" x1="50" y1="110" x2="90" y2="110" stroke="#4A6CF7" stroke-width="4" stroke-linecap="round" />
-                       <line class="road-line-segment" x1="110" y1="110" x2="160" y2="110" stroke="#4A6CF7" stroke-width="4" stroke-linecap="round" />
-                       <line class="road-line-segment" x1="180" y1="110" x2="210" y2="110" stroke="#4A6CF7" stroke-width="4" stroke-linecap="round" />
+                      <line class="road-line-segment" x1="50" y1="108" x2="190" y2="108" stroke-width="5" stroke-linecap="round" />
                   </g>
               </svg>
           </div>
+          
+          <img src="../assets/images/logo.png" alt="SLATE Logo" class="loader-logo-secondary">
+          <h1 class="loader-system-name">SLATE LOGISTICS</h1>
+          <p id="loader-text">Initializing System...</p>
       </div>
-      
-      <h1 class="loader-system-name">SLATE LOGISTICS</h1>
-      <p id="loader-text">Initializing System...</p>
   </div>
 
   <div class="main-container">

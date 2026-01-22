@@ -6,7 +6,7 @@
     width: 100%;
     height: 100%;
     background-color: #ffffff;
-    /* Clean white background like reference */
+    /* Clean white background */
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -34,21 +34,21 @@ body.dark-mode #loading-overlay {
 }
 
 .loader-content {
-    position: relative;
-    width: 100%;
-    max-width: 300px;
-    height: 180px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 2rem;
+    justify-content: center;
+    text-align: center;
 }
 
 /* --- TRUCK ANIMATION --- */
 .truck-wrapper {
-    width: 220px;
+    width: 200px;
     height: 120px;
+    margin-bottom: 1rem;
     position: relative;
+    /* Removed margin-bottom 2rem to bring logo closer if needed, 
+       but typically first version had space. fitting structure. */
 }
 
 .truck-svg {
@@ -57,72 +57,83 @@ body.dark-mode #loading-overlay {
     overflow: visible;
 }
 
-/* Truck Lines */
 .truck-body,
 .truck-cab,
 .truck-window {
     fill: none;
-    stroke: #4A6CF7;
-    /* Brand Blue */
+    stroke: #000;
+    /* Default black for light mode */
     stroke-width: 4;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: stroke 0.3s;
 }
 
-/* Dark mode stroke adjustment */
 body.dark-mode .truck-body,
 body.dark-mode .truck-cab,
 body.dark-mode .truck-window,
+body.dark-mode .truck-wheel,
 body.dark-mode .speed-line,
 body.dark-mode .road-line-segment {
     stroke: #fff;
+    /* White for dark mode */
 }
 
 /* Speed Lines */
-.speed-lines {
-    animation: speedEffect 1s linear infinite;
-}
-
-.speed-line {
-    stroke: #4A6CF7;
+.speed-lines line {
+    animation: speedLine 1s linear infinite;
+    stroke: #000;
     stroke-width: 4;
     stroke-linecap: round;
     opacity: 0;
 }
 
-/* Wheels */
-.truck-wheel {
-    fill: none;
-    stroke: #4A6CF7;
-    stroke-width: 4;
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: wheelSpin 0.8s linear infinite;
-}
-
-body.dark-mode .truck-wheel {
+body.dark-mode .speed-lines line {
     stroke: #fff;
 }
 
-/* Logo on Truck */
-.truck-logo {
-    width: 60px;
-    height: 40px;
-    x: 65;
-    y: 35;
-    opacity: 0.9;
+.speed-lines line:nth-child(1) {
+    animation-delay: 0s;
 }
 
-/* System Name */
+.speed-lines line:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.speed-lines line:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* Wheel Rotation */
+.truck-wheel {
+    fill: none;
+    stroke: #000;
+    stroke-width: 4;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wheelSpin 1s linear infinite;
+}
+
+/* Truck Bounce */
+.truck-group {
+    animation: truckBounce 0.6s ease-in-out infinite alternate;
+}
+
+/* LOGO & TEXT */
+.loader-logo-secondary {
+    width: 100px;
+    height: auto;
+    margin-bottom: 1rem;
+    /* No grayscale, keeping brand colors */
+}
+
 .loader-system-name {
     font-size: 1.5rem;
     font-weight: 800;
     margin: 0;
+    margin-bottom: 0.5rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #1e293b;
-    margin-bottom: 0.5rem;
+    color: #333;
 }
 
 body.dark-mode .loader-system-name {
@@ -131,44 +142,28 @@ body.dark-mode .loader-system-name {
 
 #loader-text {
     font-size: 0.9rem;
-    color: #64748b;
-    letter-spacing: 1px;
-    min-height: 1.5rem;
     font-weight: 500;
+    color: #666;
+    min-height: 1.5rem;
+    letter-spacing: 1px;
 }
 
 body.dark-mode #loader-text {
-    color: #94a3b8;
+    color: #aaa;
 }
 
-/* --- ANIMATIONS --- */
-
-/* Bouncing Truck Body */
-.truck-group {
-    animation: truckBump 0.8s ease-in-out infinite alternate;
-}
-
-@keyframes truckBump {
+/* --- KEYFRAMES --- */
+@keyframes truckBounce {
     0% {
         transform: translateY(0);
     }
 
     100% {
-        transform: translateY(-3px);
+        transform: translateY(-4px);
     }
 }
 
-@keyframes wheelSpin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes speedEffect {
+@keyframes speedLine {
     0% {
         transform: translateX(10px);
         opacity: 0;
@@ -184,8 +179,23 @@ body.dark-mode #loader-text {
     }
 }
 
-/* Road moving effect */
-.road-group line {
+@keyframes wheelSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Road Lines */
+.road-group {
+    opacity: 0.5;
+}
+
+.road-line-segment {
+    stroke: #000;
     animation: roadMove 1s linear infinite;
 }
 
