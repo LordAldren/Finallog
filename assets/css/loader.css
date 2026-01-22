@@ -47,9 +47,9 @@
 
 /* --- CYBER TRUCK ANIMATION --- */
 .truck-wrapper {
-    width: 220px;
-    height: 140px;
-    margin-bottom: 1rem;
+    width: 240px;
+    height: 160px;
+    margin-bottom: 0.5rem;
     position: relative;
     /* Holographic Projection Base */
     filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.2));
@@ -65,7 +65,8 @@
 .truck-body,
 .truck-cab,
 .truck-window {
-    fill: none;
+    fill: rgba(5, 20, 40, 0.6);
+    /* Added semi-transparent fill */
     stroke: var(--neon-cyan);
     stroke-width: 3;
     stroke-linecap: round;
@@ -79,7 +80,7 @@
 /* Window Highlight */
 .truck-window {
     stroke: #fff;
-    fill: rgba(0, 240, 255, 0.1);
+    fill: rgba(0, 240, 255, 0.2);
 }
 
 /* Wheels */

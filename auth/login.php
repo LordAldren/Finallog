@@ -140,27 +140,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="loader-content">
           <!-- Driving Truck Animation -->
           <div class="truck-wrapper">
-               <svg class="truck-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+               <svg class="truck-svg" viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg">
                   <g class="truck-group">
                       <!-- Speed Lines -->
                       <g class="speed-lines">
-                          <line x1="10" y1="45" x2="40" y2="45" />
-                          <line x1="0" y1="60" x2="35" y2="60" />
-                          <line x1="10" y1="75" x2="40" y2="75" />
+                          <line x1="10" y1="65" x2="40" y2="65" />
+                          <line x1="0" y1="80" x2="35" y2="80" />
+                          <line x1="10" y1="95" x2="40" y2="95" />
                       </g>
                       
                       <!-- Truck Body -->
-                      <path class="truck-body" d="M60 30 H140 V90 H60 Z" />
-                      <path class="truck-cab" d="M140 50 H170 L180 90 H140 V50" />
-                      <path class="truck-window" d="M145 55 H165 L170 70 H145 V55" />
+                      <path class="truck-body" d="M60 50 H140 V110 H60 Z" />
+                      <path class="truck-cab" d="M140 70 H170 L180 110 H140 V70" />
+                      <path class="truck-window" d="M145 75 H165 L170 90 H145 V75" />
 
                       <!-- Wheels -->
-                      <circle class="truck-wheel" cx="90" cy="90" r="14" />
-                      <circle class="truck-wheel" cx="160" cy="90" r="14" />
+                      <circle class="truck-wheel" cx="90" cy="110" r="14" />
+                      <circle class="truck-wheel" cx="160" cy="110" r="14" />
                   </g>
                   <!-- Road -->
                   <g class="road-group">
-                      <line class="road-line-segment" x1="50" y1="108" x2="190" y2="108" />
+                      <line class="road-line-segment" x1="50" y1="128" x2="190" y2="128" />
                   </g>
               </svg>
           </div>
@@ -170,15 +170,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <img src="../assets/images/logo.png" class="main-logo-small" alt="SLATE Logo">
           </div>
 
-          <!-- Brand Text -->
-          <div class="brand-text">
-              <h1 class="slate-title">SLATE</h1>
-              <h2 class="slate-subtitle">SLATE LOGISTICS</h2>
-          </div>
-
           <!-- Status & Progress -->
           <div class="loading-status">
-              <p id="loader-text">CALIBRATING PREDICTIVE ROUTES...</p>
+              <p id="loader-text">Loading System Resources...</p>
               <div class="progress-line-bg">
                   <div class="progress-line-fill"></div>
               </div>
