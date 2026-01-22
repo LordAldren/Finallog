@@ -172,7 +172,70 @@ $locations_json = json_encode($locations);
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-</head>
+    <style>
+        /* --- CENTERED MODAL STYLES --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-panel);
+            margin: 0;
+            padding: 2rem;
+            border: var(--border-tech);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            
+            /* Center positioning */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .modal h2 {
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--text-muted);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        .close-button:hover {
+            color: var(--primary-color);
+        }
+    </style>
 
 <body>
     <?php include '../../includes/sidebar.php'; ?>
@@ -461,6 +524,13 @@ $locations_json = json_encode($locations);
                 el.addEventListener('click', () => {
                     el.closest('.modal').style.display = 'none';
                 });
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
             });
         });
     </script>
