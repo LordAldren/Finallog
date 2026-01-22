@@ -187,7 +187,129 @@ $drivers_result = $conn->query("SELECT id, name FROM drivers ORDER BY name ASC")
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trip History | DTPM</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
-</head>
+    <style>
+        /* --- PREMIUM FORM STYLES --- */
+        .filter-card {
+            background: linear-gradient(145deg, var(--bg-panel), rgba(0, 0, 0, 0.2));
+            border: var(--border-tech);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-glow);
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 0; /* Reset margin for grid layout in filter */
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border-radius: 4px;
+            font-family: var(--font-data);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background: rgba(0, 114, 255, 0.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 114, 255, 0.2);
+            outline: none;
+        }
+
+        .form-control option {
+            background-color: var(--bg-panel);
+            color: var(--text-main);
+        }
+
+        /* --- TABLE OVERFLOW FIX --- */
+        .table-section {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        table {
+            min-width: 1200px; /* Force table to have minimum width ensures horizontal scroll on small screens */
+        }
+
+        /* --- CENTERED MODAL STYLES --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-panel);
+            margin: 0;
+            padding: 2rem;
+            border: var(--border-tech);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            
+            /* Center positioning */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .modal h2 {
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--text-muted);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        .close-button:hover {
+            color: var(--primary-color);
+        }
+    </style>
 
 <body>
     <?php include '../../includes/sidebar.php'; ?>
@@ -206,7 +328,7 @@ $drivers_result = $conn->query("SELECT id, name FROM drivers ORDER BY name ASC")
 
         <?php echo $message; ?>
 
-        <div class="card">
+        <div class="filter-card">
             <h3>Filter and Search Trips</h3>
             <form action="trip_history.php" method="GET"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; align-items: end;">
@@ -253,11 +375,11 @@ $drivers_result = $conn->query("SELECT id, name FROM drivers ORDER BY name ASC")
                             echo 'selected'; ?>>Breakdown</option>
                     </select>
                 </div>
-                <div class="form-actions" style="grid-column: 1 / -1; justify-content: start; gap: 0.5rem;">
-                    <button type="submit" class="btn btn-primary">Filter</button>
-                    <a href="trip_history.php" class="btn btn-secondary">Reset</a>
+                <div class="form-actions" style="grid-column: 1 / -1; justify-content: start; gap: 0.5rem; margin-top: 10px;">
+                    <button type="submit" class="btn btn-primary" style="height: 42px;">Filter</button>
+                    <a href="trip_history.php" class="btn btn-secondary" style="height: 42px; line-height: 20px;">Reset</a>
                     <a href="trip_history.php?download_csv=true&<?php echo http_build_query($_GET); ?>"
-                        class="btn btn-success">Download CSV</a>
+                        class="btn btn-success" style="height: 42px; line-height: 20px;">Download CSV</a>
                 </div>
             </form>
         </div>
@@ -380,7 +502,6 @@ $drivers_result = $conn->query("SELECT id, name FROM drivers ORDER BY name ASC")
             if (rateCloseBtn) rateCloseBtn.addEventListener('click', closeRateModal);
             if (rateCancelBtn) rateCancelBtn.addEventListener('click', closeRateModal);
 
-            document.querySelectorAll('.rateDriverBtn').forEach(btn => {
                 btn.addEventListener('click', function () {
                     document.getElementById('rating_trip_id').value = this.dataset.tripId;
                     document.getElementById('rating_driver_id').value = this.dataset.driverId;
@@ -388,6 +509,13 @@ $drivers_result = $conn->query("SELECT id, name FROM drivers ORDER BY name ASC")
                     document.getElementById('rating_driver_name').textContent = this.dataset.driverName;
                     rateModal.style.display = 'block';
                 });
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
             });
         });
     </script>
