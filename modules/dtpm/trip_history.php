@@ -236,7 +236,7 @@ $drivers_result = $conn->query("SELECT id, name FROM drivers ORDER BY name ASC")
             color: var(--text-main);
         }
 
-        /* --- TABLE OVERFLOW FIX --- */
+        /* --- TABLE COMPACT FIX --- */
         .table-section {
             width: 100%;
             overflow-x: auto;
@@ -244,7 +244,21 @@ $drivers_result = $conn->query("SELECT id, name FROM drivers ORDER BY name ASC")
         }
         
         table {
-            min-width: 1200px; /* Force table to have minimum width ensures horizontal scroll on small screens */
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem; /* Smaller text */
+        }
+
+        th, td {
+            padding: 8px 10px; /* Reduces padding */
+            white-space: nowrap; /* Keep content on one line */
+            vertical-align: middle;
+        }
+
+        /* Specific column adjustments if needed */
+        td.wrap-text {
+            white-space: normal;
+            max-width: 150px;
         }
 
         /* --- CENTERED MODAL STYLES --- */
@@ -396,8 +410,8 @@ $drivers_result = $conn->query("SELECT id, name FROM drivers ORDER BY name ASC")
                             <th>Pickup Time</th>
                             <th>Start Point</th>
                             <th>Destination</th>
-                            <th>Distance (km)</th>
-                            <th>Fuel Used (L)</th>
+                            <th>Dist (km)</th>
+                            <th>Fuel (L)</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -406,41 +420,48 @@ $drivers_result = $conn->query("SELECT id, name FROM drivers ORDER BY name ASC")
                         <?php if ($trip_history_result->num_rows > 0): ?>
                             <?php while ($row = $trip_history_result->fetch_assoc()):
                                 // --- LOGIC PARA SA DISTANCE AT FUEL ---
-                                $start_point = "Main Depot (Manila)";
+                                $start_point = "Main Depot";
                                 srand($row['id']);
                                 $distance_val = rand(150, 1500) / 10;
                                 $fuel_consumption_val = $distance_val / 8;
 
-                                $distance_display = number_format($distance_val, 1) . ' km';
-                                $fuel_display = number_format($fuel_consumption_val, 1) . ' L';
+                                $distance_display = number_format($distance_val, 1);
+                                $fuel_display = number_format($fuel_consumption_val, 1);
                                 ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($row['trip_code']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['vehicle_type'] . ' ' . $row['vehicle_model']); ?></td>
+                                    <td style="font-weight:bold; color:var(--primary-color);"><?php echo htmlspecialchars($row['trip_code']); ?></td>
+                                    <td class="wrap-text" style="max-width: 120px; font-size: 0.8rem; line-height: 1.2;">
+                                        <?php echo htmlspecialchars($row['vehicle_type']); ?><br>
+                                        <span style="color:var(--text-muted);"><?php echo htmlspecialchars($row['vehicle_model']); ?></span>
+                                    </td>
                                     <td><?php echo htmlspecialchars($row['driver_name']); ?></td>
-                                    <td><?php echo htmlspecialchars(date('M d, Y h:i A', strtotime($row['pickup_time']))); ?>
+                                    <td>
+                                        <div style="font-size: 0.8rem;">
+                                            <?php echo htmlspecialchars(date('M d, Y', strtotime($row['pickup_time']))); ?>
+                                        </div>
+                                        <div style="font-size: 0.75rem; color:var(--text-muted);">
+                                            <?php echo htmlspecialchars(date('h:i A', strtotime($row['pickup_time']))); ?>
+                                        </div>
                                     </td>
-                                    <td><?php echo htmlspecialchars($start_point); ?></td> <!-- Display Start Point -->
-                                    <td><?php echo htmlspecialchars($row['destination']); ?></td>
-                                    <td><?php echo $distance_display; ?></td> <!-- Display Distance -->
-                                    <td><?php echo $fuel_display; ?></td> <!-- Display Fuel from Distance -->
-                                    <td><span
-                                            class="status-badge status-<?php echo strtolower(str_replace(' ', '-', $row['status'])); ?>"><?php echo htmlspecialchars($row['status']); ?></span>
-                                    </td>
+                                    <td class="wrap-text"><?php echo htmlspecialchars($start_point); ?></td> 
+                                    <td class="wrap-text"><?php echo htmlspecialchars($row['destination']); ?></td>
+                                    <td style="text-align:center;"><?php echo $distance_display; ?></td> 
+                                    <td style="text-align:center;"><?php echo $fuel_display; ?></td> 
+                                    <td><span class="status-badge status-<?php echo strtolower(str_replace(' ', '-', $row['status'])); ?>" style="font-size: 0.7rem; padding: 2px 6px;"><?php echo htmlspecialchars($row['status']); ?></span></td>
                                     <td class="action-buttons">
                                         <?php if (!empty($row['proof_of_delivery_path'])): ?>
                                             <a href="<?php echo $project_root; ?>/<?php echo htmlspecialchars($row['proof_of_delivery_path']); ?>"
-                                                target="_blank" class="btn btn-info btn-sm">View POD</a>
+                                                target="_blank" class="btn btn-info btn-sm" style="padding: 2px 6px; font-size: 0.7rem;">POD</a>
                                         <?php endif; ?>
 
                                         <!-- Rating Button for Completed Trips -->
                                         <?php if ($row['status'] == 'Completed'): ?>
-                                            <button class="btn btn-warning btn-sm rateDriverBtn"
+                                            <button class="btn btn-warning btn-sm rateDriverBtn" style="padding: 2px 6px; font-size: 0.7rem;"
                                                 data-trip-id="<?php echo $row['id']; ?>"
                                                 data-driver-id="<?php echo $row['driver_id']; ?>"
                                                 data-trip-code="<?php echo htmlspecialchars($row['trip_code']); ?>"
                                                 data-driver-name="<?php echo htmlspecialchars($row['driver_name']); ?>">
-                                                Rate Driver
+                                                Rate
                                             </button>
                                         <?php endif; ?>
                                     </td>
