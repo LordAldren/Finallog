@@ -4,19 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SLATE | Initializing Logistics Nexus</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>SLATE | Loading Intelligence</title>
+    <!-- Use Google Fonts for a more premium look -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Roboto+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --primary: #00e1ff;
-            --accent: #0072ff;
-            --bg-dark: #020617;
-            --glass: rgba(15, 23, 42, 0.7);
-            --border: rgba(0, 225, 255, 0.2);
+            --primary: #00f2ff;
+            --accent: #5e00ff;
+            --bg: #030712;
+            --glass: rgba(17, 24, 39, 0.75);
+            --border: rgba(255, 255, 255, 0.08);
         }
 
         * {
@@ -29,138 +28,113 @@
         html {
             width: 100%;
             height: 100%;
-            background-color: var(--bg-dark);
-            font-family: 'Outfit', sans-serif;
-            color: #fff;
+            background-color: var(--bg);
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Background Layer */
-        .nexus-bg {
+        /* Ambient Background */
+        .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.6)),
-                url('assets/images/loading_bg.png');
-            background-size: cover;
-            background-position: center;
+            background: radial-gradient(circle at 50% 50%, rgba(94, 0, 255, 0.05) 0%, transparent 70%),
+                url('assets/images/loading_bg_v2.png') center/cover no-repeat;
             z-index: -1;
-            filter: scale(1.1);
-            animation: bgShift 20s infinite alternate ease-in-out;
+            opacity: 0.8;
+            filter: brightness(0.7);
         }
 
-        @keyframes bgShift {
-            0% {
-                transform: scale(1) translate(0, 0);
-            }
-
-            100% {
-                transform: scale(1.1) translate(-20px, -20px);
-            }
-        }
-
-        /* Glass Container */
-        .loader-card {
-            width: 450px;
-            padding: 3rem;
+        /* High-End Glassmorph Container */
+        .main-stage {
+            width: 500px;
+            padding: 4rem;
             background: var(--glass);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
             border: 1px solid var(--border);
-            border-radius: 24px;
+            border-radius: 40px;
+            box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.8),
+                inset 0 1px 1px rgba(255, 255, 255, 0.05);
             text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
-                0 0 40px rgba(0, 225, 255, 0.1);
             position: relative;
             z-index: 10;
-            overflow: hidden;
         }
 
-        /* Decorative Corners */
-        .loader-card::before,
-        .loader-card::after {
+        /* Animated Glowing Ring */
+        .loader-ring {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 2.5rem;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader-ring::before {
             content: '';
             position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--primary);
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite;
         }
 
-        .loader-card::before {
-            top: 10px;
-            left: 10px;
-            border-right: none;
-            border-bottom: none;
-            border-radius: 12px 0 0 0;
+        .loader-ring::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            border: 2px solid transparent;
+            border-bottom-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1.5s cubic-bezier(0.55, 0.055, 0.675, 0.19) reverse infinite;
         }
 
-        .loader-card::after {
-            bottom: 10px;
-            right: 10px;
-            border-left: none;
-            border-top: none;
-            border-radius: 0 0 12px 0;
-        }
-
-        .logo-container {
-            margin-bottom: 2rem;
+        .logo-img {
+            width: 60px;
+            height: auto;
             position: relative;
+            z-index: 11;
+            filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.5));
         }
 
-        .logo-container img {
-            width: 100px;
-            filter: drop-shadow(0 0 15px rgba(0, 225, 255, 0.4));
-            animation: logoPulse 2s infinite ease-in-out;
-        }
-
-        @keyframes logoPulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 15px rgba(0, 225, 255, 0.4));
-            }
-
-            50% {
-                transform: scale(1.05);
-                filter: drop-shadow(0 0 25px rgba(0, 225, 255, 0.7));
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
             }
         }
 
-        .system-status {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.8rem;
+        /* Data Readout */
+        .data-readout {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
             color: var(--primary);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1.5rem;
-            height: 20px;
-            opacity: 0.8;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+            min-height: 1.2rem;
+            opacity: 0.7;
+            text-shadow: 0 0 8px rgba(0, 242, 255, 0.3);
         }
 
-        /* Progress Section */
-        .progress-wrapper {
-            margin-bottom: 1rem;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 0.5rem;
-        }
-
-        .progress-bar-bg {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
+        /* Premium Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
             overflow: hidden;
+            margin-bottom: 1rem;
             position: relative;
         }
 
@@ -168,148 +142,144 @@
             height: 100%;
             width: 0%;
             background: linear-gradient(90deg, var(--accent), var(--primary));
-            box-shadow: 0 0 15px var(--primary);
-            transition: width 0.3s ease-out;
+            box-shadow: 0 0 20px var(--primary);
+            border-radius: 10px;
+            transition: width 0.4s ease-out;
         }
 
-        .initializing-text {
-            font-size: 0.75rem;
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: 600;
             color: rgba(255, 255, 255, 0.4);
-            font-style: italic;
         }
 
-        /* Scanning Line overlay for the whole page */
-        .scanline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom,
-                    rgba(255, 255, 255, 0.03) 50%,
-                    rgba(0, 0, 0, 0.1) 50%);
-            background-size: 100% 4px;
-            z-index: 20;
-            pointer-events: none;
-            opacity: 0.2;
+        .percent-val {
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        .data-particles {
+        /* Floating Light Leaks */
+        .light-leak {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            width: 60vw;
+            height: 60vh;
+            background: radial-gradient(circle, rgba(94, 0, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
             z-index: 1;
+            filter: blur(100px);
             pointer-events: none;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(-10%, -10%);
+            }
+
+            100% {
+                transform: translate(10%, 10%);
+            }
+        }
+
+        /* Footer */
+        .version-tag {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.2);
+            margin-top: 3rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 
 <body>
-    <div class="nexus-bg"></div>
-    <div class="scanline"></div>
-    <div class="data-particles" id="particles"></div>
+    <div class="bg-overlay"></div>
+    <div class="light-leak"></div>
+    <div class="light-leak" style="bottom: -10%; right: -10%; animation-delay: -5s;"></div>
 
-    <div class="loader-card">
-        <div class="logo-container">
-            <img src="assets/images/logo.png" alt="SLATE LOGO">
+    <div class="main-stage">
+        <div class="loader-ring">
+            <img src="assets/images/logo.png" class="logo-img" alt="SLATE">
         </div>
 
-        <div class="system-status" id="status-text">SYSTEM INITIALIZING...</div>
+        <div class="data-readout" id="status-update">INITIALIZING CORE...</div>
 
-        <div class="progress-wrapper">
-            <div class="progress-label">
-                <span>Network Integrity</span>
-                <span id="percent">0%</span>
-            </div>
-            <div class="progress-bar-bg">
-                <div class="progress-fill" id="bar"></div>
-            </div>
+        <div class="progress-container">
+            <div class="progress-fill" id="progress-bar"></div>
         </div>
 
-        <div class="initializing-text">SLATE v2.0 - Secure Freight Management</div>
+        <div class="progress-meta">
+            <span>SECURE LINK</span>
+            <span class="percent-val" id="percent-text">00%</span>
+        </div>
+
+        <div class="version-tag">SLATE FREIGHT MANAGEMENT © 2026</div>
     </div>
 
     <script>
-        const statusText = document.getElementById('status-text');
-        const percentText = document.getElementById('percent');
-        const bar = document.getElementById('bar');
+        const progressBar = document.getElementById('progress-bar');
+        const percentText = document.getElementById('percent-text');
+        const statusUpdate = document.getElementById('status-update');
 
-        const messages = [
-            "Syncing Fleet Protocols...",
-            "Encrypting Data Streams...",
-            "Optimizing Route Matrix...",
-            "Authenticating Sessions...",
-            "Finalizing Nexus Link..."
+        const logs = [
+            "Initializing secure protocols...",
+            "Connecting to fleet telemetry...",
+            "Encrypting logistics matrix...",
+            "Synchronizing route data...",
+            "Optimizing predictive algorithms...",
+            "Establishing neural link...",
+            "Finalizing authentication...",
+            "Access granted. Entering SLATE."
         ];
 
         let progress = 0;
-        let msgIndex = 0;
+        let logStep = 0;
 
-        const updateLoader = () => {
+        function updateLoader() {
             if (progress >= 100) {
                 progress = 100;
-                percentText.textContent = "100%";
-                bar.style.width = "100%";
-                statusText.textContent = "ACCESS GRANTED";
-                statusText.style.color = "#00ff9d";
+                progressBar.style.width = '100%';
+                percentText.textContent = '100%';
+                statusUpdate.textContent = logs[logs.length - 1];
+                statusUpdate.style.color = '#00ffaa';
 
+                // Final Smooth Redirect
                 setTimeout(() => {
                     document.body.style.opacity = '0';
-                    document.body.style.transition = 'opacity 0.8s ease';
+                    document.body.style.transition = 'opacity 1s cubic-bezier(0.4, 0, 0.2, 1)';
                     setTimeout(() => {
-                        window.location.href = '/code/auth/login.php';
-                    }, 800);
-                }, 1000);
+                        window.location.href = 'auth/login.php';
+                    }, 1000);
+                }, 1200);
                 return;
             }
 
-            progress += Math.random() * 5 + 1;
+            // Pseudo-random progress for natural feel
+            progress += Math.random() * 4 + 0.5;
             if (progress > 100) progress = 100;
 
-            percentText.textContent = Math.floor(progress) + "%";
-            bar.style.width = progress + "%";
+            progressBar.style.width = `${progress}%`;
+            percentText.textContent = `${Math.floor(progress).toString().padStart(2, '0')}%`;
 
-            // Update status text periodically
-            if (Math.floor(progress) % 20 === 0 && msgIndex < messages.length - 1) {
-                msgIndex = Math.min(Math.floor(progress / 20), messages.length - 1);
-                statusText.textContent = messages[msgIndex];
+            // Change logs based on progress thresholds
+            const currentLogStep = Math.floor((progress / 100) * (logs.length - 1));
+            if (currentLogStep > logStep) {
+                logStep = currentLogStep;
+                statusUpdate.style.opacity = '0';
+                setTimeout(() => {
+                    statusUpdate.textContent = logs[logStep];
+                    statusUpdate.style.opacity = '0.7';
+                }, 150);
             }
 
-            setTimeout(updateLoader, Math.random() * 150 + 50);
-        };
-
-        // Create simple background particles
-        const createParticles = () => {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 30; i++) {
-                const p = document.createElement('div');
-                p.style.position = 'absolute';
-                p.style.width = '2px';
-                p.style.height = '2px';
-                p.style.background = '#00e1ff';
-                p.style.opacity = Math.random() * 0.5;
-                p.style.top = Math.random() * 100 + '%';
-                p.style.left = Math.random() * 100 + '%';
-                p.style.borderRadius = '50%';
-
-                p.animate([
-                    { transform: 'translateY(0)', opacity: 0 },
-                    { transform: 'translateY(-100px)', opacity: p.style.opacity },
-                    { transform: 'translateY(-200px)', opacity: 0 }
-                ], {
-                    duration: Math.random() * 3000 + 2000,
-                    iterations: Infinity,
-                    delay: Math.random() * 2000
-                });
-                container.appendChild(p);
-            }
-        };
+            setTimeout(updateLoader, Math.random() * 200 + 50);
+        }
 
         window.onload = () => {
-            createParticles();
-            setTimeout(updateLoader, 500);
+            setTimeout(updateLoader, 800);
         };
     </script>
 </body>
