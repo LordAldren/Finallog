@@ -138,23 +138,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <div id="loading-overlay">
     <div class="loader-content">
-      <img src="../assets/images/logo.png" alt="SLATE Logo" class="loader-logo-main">
-      <p id="loader-text">Initializing System...</p>
-      <div class="road">
-        <div class="vehicle-container vehicle-1">
-          <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M503.3 337.2c-7.2-21.6-21.6-36-43.2-43.2l-43.2-14.4V232c0-23.9-19.4-43.2-43.2-43.2H256V96c0-12.7-5.1-24.9-14.1-33.9L208 28.3c-9-9-21.2-14.1-33.9-14.1H48C21.5 14.2 0 35.7 0 62.2V337c0 23.9 19.4 43.2 43.2 43.2H64c0 35.3 28.7 64 64 64s64-28.7 64-64h128c0 35.3 28.7 64 64 64s64-28.7 64-64h17.3c23.9 0 43.2-19.4 43.2-43.2V337.2zM128 401c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm0-192h-88.8v-48H384v48z" />
-          </svg>
-        </div>
+        <div class="truck-wrapper">
+             <svg class="truck-icon" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                <g class="truck-group">
+                    <!-- Speed Lines -->
+                    <g class="speed-lines">
+                        <line x1="10" y1="45" x2="40" y2="45" stroke-width="5" stroke-linecap="round" />
+                        <line x1="0" y1="60" x2="35" y2="60" stroke-width="5" stroke-linecap="round" />
+                        <line x1="10" y1="75" x2="40" y2="75" stroke-width="5" stroke-linecap="round" />
+                    </g>
+                    
+                    <!-- Truck Body -->
+                    <path d="M60 30 H140 V90 H60 Z" stroke-width="5" stroke-linejoin="round" fill="none"/> <!-- Box -->
+                    <path d="M140 50 H170 L180 90 H140 V50" stroke-width="5" stroke-linejoin="round" fill="none"/> <!-- Front -->
+                    <path d="M145 55 H165 L170 70 H145 V55" fill="none" stroke-width="3"/> <!-- Window -->
 
-        <div class="vehicle-container vehicle-3">
-          <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M503.3 337.2c-7.2-21.6-21.6-36-43.2-43.2l-43.2-14.4V232c0-23.9-19.4-43.2-43.2-43.2H256V96c0-12.7-5.1-24.9-14.1-33.9L208 28.3c-9-9-21.2-14.1-33.9-14.1H48C21.5 14.2 0 35.7 0 62.2V337c0 23.9 19.4 43.2 43.2 43.2H64c0 35.3 28.7 64 64 64s64-28.7 64-64h128c0 35.3 28.7 64 64 64s64-28.7 64-64h17.3c23.9 0 43.2-19.4 43.2-43.2V337.2zM128 401c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm0-192h-88.8v-48H384v48z" />
-          </svg>
+                    <!-- Logo on Truck Side (using relative path for login) -->
+                    <image href="../assets/images/logo.png" x="65" y="35" width="70" height="50" preserveAspectRatio="xMidYMid contain" />
+
+                    <!-- Wheels -->
+                    <circle cx="90" cy="90" r="14" stroke-width="5" fill="none" />
+                    <circle cx="160" cy="90" r="14" stroke-width="5" fill="none" />
+                </g>
+                <!-- Road -->
+                <line x1="50" y1="108" x2="190" y2="108" stroke-width="5" stroke-linecap="round" class="road-line"/>
+            </svg>
         </div>
-      </div>
+        
+        <h1 class="loader-system-name">SLATE LOGISTICS</h1>
+        <p id="loader-text">Initializing System...</p>
     </div>
   </div>
 
