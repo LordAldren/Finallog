@@ -309,12 +309,9 @@ $params_grid['view'] = 'grid';
 
             <div id="viewVehicleModal" class="modal">
                 <div class="modal-content">
-                    <span class="close-button">&times;</span>
-                    <h2>Vehicle Details</h2>
+<h2>Vehicle Details</h2>
                     <div id="viewVehicleBody" style="line-height: 1.8;"></div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary cancelBtn">Close</button>
-                    </div>
+
                 </div>
             </div>
 
