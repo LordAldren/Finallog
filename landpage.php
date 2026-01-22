@@ -293,18 +293,7 @@ $initial_locations_json = json_encode($initial_locations);
 </head>
 
 <body>
-    <div id="loading-overlay">
-        <div class="loader-content">
 
-
-            <!-- Logo Image Below Truck -->
-            <div class="logo-wrapper-below">
-                <img src="assets/images/logo.png" class="main-logo-small" alt="SLATE Logo">
-            </div>
-
-
-        </div>
-    </div>
 
     <?php include 'includes/sidebar.php'; ?>
 
@@ -669,7 +658,7 @@ $initial_locations_json = json_encode($initial_locations);
         });
     </script>
     <script src="assets/js/dark_mode_handler.js" defer></script>
-    <script src="assets/js/loader.js"></script>
+
 </body>
 
 </html>

@@ -202,7 +202,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="../privacy.php" target="_blank">Privacy Policy</a>
   </footer>
 
-  <script src="../assets/js/loader.js"></script>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const togglePassword = document.querySelector('#togglePassword');
