@@ -225,6 +225,25 @@ $params_grid['view'] = 'grid';
             margin-bottom: 20px;
             font-size: 1.5rem;
         }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--text-muted);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -349,7 +368,8 @@ $params_grid['view'] = 'grid';
 
             <div id="viewVehicleModal" class="modal">
                 <div class="modal-content">
-<h2>Vehicle Details</h2>
+                    <span class="close-button">&times;</span>
+                    <h2>Vehicle Details</h2>
                     <div id="viewVehicleBody" style="line-height: 1.8;"></div>
 
                 </div>
@@ -489,6 +509,11 @@ $params_grid['view'] = 'grid';
                 if (e.target === viewVehicleModal) {
                     viewVehicleModal.style.display = 'none';
                 }
+            });
+            
+            // Close button (x) handler
+            document.querySelector('.close-button').addEventListener('click', () => {
+                viewVehicleModal.style.display = 'none';
             });
 
             // View Button Handler
