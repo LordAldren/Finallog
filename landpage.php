@@ -302,13 +302,7 @@ $initial_locations_json = json_encode($initial_locations);
                 <img src="assets/images/logo.png" class="main-logo-small" alt="SLATE Logo">
             </div>
 
-            <!-- Status & Progress -->
-            <div class="loading-status">
-                <p id="loader-text">Loading Dashboard...</p>
-                <div class="progress-line-bg">
-                    <div class="progress-line-fill"></div>
-                </div>
-            </div>
+
         </div>
     </div>
 

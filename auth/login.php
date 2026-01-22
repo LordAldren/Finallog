@@ -145,13 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <img src="../assets/images/logo.png" class="main-logo-small" alt="SLATE Logo">
           </div>
 
-          <!-- Status & Progress -->
-          <div class="loading-status">
-              <p id="loader-text">Loading System Resources...</p>
-              <div class="progress-line-bg">
-                  <div class="progress-line-fill"></div>
-              </div>
-          </div>
+
       </div>
   </div>
 

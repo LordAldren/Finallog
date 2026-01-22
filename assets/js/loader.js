@@ -1,8 +1,8 @@
-(function() {
+(function () {
     const loader = document.getElementById('loading-overlay');
     const loaderText = document.getElementById('loader-text');
-    
-    if (!loader || !loaderText) {
+
+    if (!loader) {
         // Silent fail or console warn
         return;
     }
@@ -22,7 +22,7 @@
 
     // Function to cycle text
     const cycleText = () => {
-        if(loaderText) {
+        if (loaderText) {
             loaderText.style.opacity = '0';
             setTimeout(() => {
                 messageIndex = (messageIndex + 1) % loadingMessages.length;
@@ -32,14 +32,14 @@
         }
     };
 
-    const showLoader = function() {
+    const showLoader = function () {
         loader.classList.remove('loader-hidden');
         if (!textInterval) {
             textInterval = setInterval(cycleText, 2500);
         }
     };
-    
-    const hideLoader = function() {
+
+    const hideLoader = function () {
         loader.classList.add('loader-hidden');
         if (textInterval) {
             clearInterval(textInterval);
@@ -65,7 +65,7 @@
     });
 
     // Start text cycle immediately
-    if (!textInterval) {
+    if (!textInterval && loaderText) {
         loaderText.textContent = loadingMessages[0];
         textInterval = setInterval(cycleText, 2500);
     }
@@ -75,8 +75,8 @@
         const forms = document.querySelectorAll('form');
         forms.forEach(form => {
             // Check if form is a login/auth form
-            if (form.action.includes('login.php') || 
-                form.action.includes('forgot_password.php') || 
+            if (form.action.includes('login.php') ||
+                form.action.includes('forgot_password.php') ||
                 form.action.includes('reset_password.php') ||
                 form.action.includes('verify_otp.php')) {
                 form.addEventListener('submit', showLoader);
@@ -87,12 +87,12 @@
 
     const logoutLink = document.getElementById('logout-link');
     if (logoutLink) {
-        logoutLink.addEventListener('click', function(e) {
+        logoutLink.addEventListener('click', function (e) {
             e.preventDefault();
             showLoader();
             setTimeout(() => {
                 window.location.href = this.href;
-            }, 500); 
+            }, 500);
         });
     }
 
