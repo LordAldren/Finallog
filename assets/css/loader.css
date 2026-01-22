@@ -1,31 +1,39 @@
-/* --- LOADING OVERLAY --- */
+/* --- HIGH-TECH LOADING OVERLAY --- */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+    --tech-primary: #00f0ff;
+    /* Cyan Neon */
+    --tech-secondary: #4A6CF7;
+    /* SLATE Blue */
+    --tech-bg: #030712;
+    /* Deep Dark Blue/Black */
+    --tech-surface: rgba(17, 24, 39, 0.8);
+}
+
 #loading-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
-    /* Clean white background */
+    background-color: var(--tech-bg);
+    background-image:
+        radial-gradient(circle at 50% 50%, rgba(74, 108, 247, 0.1) 0%, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    /* Grid Scan Effect */
     z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    transition: opacity 0.75s ease, visibility 0.75s ease;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
     opacity: 1;
     visibility: visible;
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    #loading-overlay {
-        background-color: #131720;
-    }
-}
-
-body.dark-mode #loading-overlay {
-    background-color: #131720;
+    font-family: 'JetBrains Mono', monospace;
+    /* Tech Font */
 }
 
 #loading-overlay.loader-hidden {
@@ -38,148 +46,191 @@ body.dark-mode #loading-overlay {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-}
-
-/* --- TRUCK ANIMATION --- */
-.truck-wrapper {
-    width: 200px;
-    height: 120px;
-    margin-bottom: 1rem;
     position: relative;
-    /* Removed margin-bottom 2rem to bring logo closer if needed, 
-       but typically first version had space. fitting structure. */
+    z-index: 10;
 }
 
-.truck-svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
+/* --- SCANNER HUD --- */
+.scanner-container {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2.5rem;
 }
 
-.truck-body,
-.truck-cab,
-.truck-window {
-    fill: none;
-    stroke: #000;
-    /* Default black for light mode */
-    stroke-width: 4;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-body.dark-mode .truck-body,
-body.dark-mode .truck-cab,
-body.dark-mode .truck-window,
-body.dark-mode .truck-wheel,
-body.dark-mode .speed-line,
-body.dark-mode .road-line-segment {
-    stroke: #fff;
-    /* White for dark mode */
-}
-
-/* Speed Lines */
-.speed-lines line {
-    animation: speedLine 1s linear infinite;
-    stroke: #000;
-    stroke-width: 4;
-    stroke-linecap: round;
-    opacity: 0;
-}
-
-body.dark-mode .speed-lines line {
-    stroke: #fff;
-}
-
-.speed-lines line:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.speed-lines line:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.speed-lines line:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-/* Wheel Rotation */
-.truck-wheel {
-    fill: none;
-    stroke: #000;
-    stroke-width: 4;
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: wheelSpin 1s linear infinite;
-}
-
-/* Truck Bounce */
-.truck-group {
-    animation: truckBounce 0.6s ease-in-out infinite alternate;
-}
-
-/* LOGO & TEXT */
-.loader-logo-secondary {
+/* Logo in center */
+.scanner-logo {
     width: 100px;
     height: auto;
-    margin-bottom: 1rem;
-    /* No grayscale, keeping brand colors */
+    object-fit: contain;
+    z-index: 5;
+    filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.3));
+    animation: logoPulse 2s infinite ease-in-out;
+}
+
+/* Rings */
+.scan-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+.ring-1 {
+    width: 100%;
+    height: 100%;
+    border-top: 2px solid var(--tech-primary);
+    border-bottom: 2px solid var(--tech-secondary);
+    animation: spin 3s linear infinite;
+}
+
+.ring-2 {
+    width: 80%;
+    height: 80%;
+    border-left: 2px dashed rgba(0, 240, 255, 0.5);
+    border-right: 2px dashed rgba(0, 240, 255, 0.5);
+    animation: spinReverse 5s linear infinite;
+}
+
+.ring-3 {
+    width: 60%;
+    height: 60%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.1);
+}
+
+/* Scanning Line */
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 45%, var(--tech-primary) 50%, transparent 55%);
+    background-size: 100% 200%;
+    opacity: 0.3;
+    animation: scanMove 2s linear infinite;
+    pointer-events: none;
+    z-index: 6;
+    clip-path: circle(50%);
+}
+
+/* Data Particles */
+.tech-particles {
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    animation: spin 20s linear infinite;
+    pointer-events: none;
+}
+
+.tech-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--tech-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 5px var(--tech-primary);
+}
+
+.tp-1 {
+    top: 10%;
+    left: 50%;
+}
+
+.tp-2 {
+    bottom: 20%;
+    right: 10%;
+}
+
+.tp-3 {
+    top: 40%;
+    left: 0%;
+}
+
+/* --- TEXT UI --- */
+.loading-text-wrapper {
+    text-align: center;
+    position: relative;
+    padding: 1.5rem 3rem;
+    background: var(--tech-surface);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 4px;
+
+    /* Corner Accents */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.loading-text-wrapper::before,
+.loading-text-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--tech-primary);
+    transition: all 0.3s;
+}
+
+.loading-text-wrapper::before {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.loading-text-wrapper::after {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
 }
 
 .loader-system-name {
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-size: 1.25rem;
+    font-weight: 700;
     margin: 0;
     margin-bottom: 0.5rem;
     letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #333;
-}
-
-body.dark-mode .loader-system-name {
     color: #fff;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
 }
 
 #loader-text {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #666;
-    min-height: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--tech-primary);
     letter-spacing: 1px;
+    min-height: 1.2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
 }
 
-body.dark-mode #loader-text {
-    color: #aaa;
+/* Progress Bar */
+.tech-progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
-/* --- KEYFRAMES --- */
-@keyframes truckBounce {
-    0% {
-        transform: translateY(0);
-    }
-
-    100% {
-        transform: translateY(-4px);
-    }
+.tech-progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    /* Animated via JS or CSS */
+    background: var(--tech-primary);
+    box-shadow: 0 0 10px var(--tech-primary);
+    animation: progressIndeterminate 2s ease-in-out infinite;
 }
 
-@keyframes speedLine {
-    0% {
-        transform: translateX(10px);
-        opacity: 0;
-    }
-
-    20% {
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateX(-20px);
-        opacity: 0;
-    }
-}
-
-@keyframes wheelSpin {
+/* --- ANIMATIONS --- */
+@keyframes spin {
     0% {
         transform: rotate(0deg);
     }
@@ -189,28 +240,53 @@ body.dark-mode #loader-text {
     }
 }
 
-/* Road Lines */
-.road-group {
-    opacity: 0.5;
-}
-
-.road-line-segment {
-    stroke: #000;
-    animation: roadMove 1s linear infinite;
-}
-
-@keyframes roadMove {
+@keyframes spinReverse {
     0% {
-        transform: translateX(20px);
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 1;
+        transform: rotate(360deg);
     }
 
     100% {
-        transform: translateX(-40px);
-        opacity: 0;
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes scanMove {
+    0% {
+        background-position: 0% -100%;
+    }
+
+    100% {
+        background-position: 0% 200%;
+    }
+}
+
+@keyframes logoPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(0.95);
+    }
+}
+
+@keyframes progressIndeterminate {
+    0% {
+        left: -50%;
+        width: 50%;
+    }
+
+    50% {
+        left: 25%;
+        width: 50%;
+    }
+
+    100% {
+        left: 100%;
+        width: 50%;
     }
 }

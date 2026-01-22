@@ -295,35 +295,32 @@ $initial_locations_json = json_encode($initial_locations);
 <body>
     <div id="loading-overlay">
         <div class="loader-content">
-            <div class="truck-wrapper">
-                 <svg class="truck-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
-                    <g class="truck-group">
-                        <!-- Speed Lines -->
-                        <g class="speed-lines">
-                            <line x1="10" y1="45" x2="40" y2="45" />
-                            <line x1="0" y1="60" x2="35" y2="60" />
-                            <line x1="10" y1="75" x2="40" y2="75" />
-                        </g>
-                        
-                        <!-- Truck Body -->
-                        <path class="truck-body" d="M60 30 H140 V90 H60 Z" /> <!-- Box -->
-                        <path class="truck-cab" d="M140 50 H170 L180 90 H140 V50" /> <!-- Front -->
-                        <path class="truck-window" d="M145 55 H165 L170 70 H145 V55" /> <!-- Window -->
-
-                        <!-- Wheels -->
-                        <circle class="truck-wheel" cx="90" cy="90" r="14" />
-                        <circle class="truck-wheel" cx="160" cy="90" r="14" />
-                    </g>
-                    <!-- Road -->
-                    <g class="road-group">
-                        <line class="road-line-segment" x1="50" y1="108" x2="190" y2="108" stroke-width="5" stroke-linecap="round" />
-                    </g>
-                </svg>
+            <div class="scanner-container">
+                <!-- Rings -->
+                <div class="scan-ring ring-1"></div>
+                <div class="scan-ring ring-2"></div>
+                <div class="scan-ring ring-3"></div>
+                
+                <!-- Logo -->
+                <img src="assets/images/logo.png" class="scanner-logo" alt="SLATE Logo" />
+                
+                <!-- Scan Effect Overlay -->
+                <div class="scan-line"></div>
+                
+                <!-- Particles -->
+                <div class="tech-particles">
+                    <div class="tech-particle tp-1"></div>
+                    <div class="tech-particle tp-2"></div>
+                    <div class="tech-particle tp-3"></div>
+                </div>
             </div>
             
-            <img src="assets/images/logo.png" alt="SLATE Logo" class="loader-logo-secondary">
-            <h1 class="loader-system-name">SLATE LOGISTICS</h1>
-            <p id="loader-text">Initializing System...</p>
+            <div class="loading-text-wrapper">
+                <h1 class="loader-system-name">SLATE LOGISTICS</h1>
+                <p id="loader-text">INITIALIZING...</p>
+                <!-- Progress Bar -->
+                <div class="tech-progress-bar"><div class="tech-progress-fill"></div></div>
+            </div>
         </div>
     </div>
 
