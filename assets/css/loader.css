@@ -3,9 +3,10 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #131720; 
+    width: 100%;
+    height: 100%;
+    background-color: #131720;
+    /* Dark background as base */
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -14,7 +15,12 @@
     transition: opacity 0.75s ease, visibility 0.75s ease;
     opacity: 1;
     visibility: visible;
-    overflow: hidden; /* Para hindi lumabas ang mga sasakyan sa screen */
+}
+
+/* Light Mode Background override if body has light-mode logic, otherwise default to dark premium feel */
+body:not(.dark-mode) #loading-overlay {
+    background-color: #f8fafc;
+    /* Slate-50 for light mode */
 }
 
 #loading-overlay.loader-hidden {
@@ -23,90 +29,114 @@
 }
 
 .loader-content {
-    text-align: center;
     position: relative;
-    width: 100%;
-    max-width: 400px;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Main logo, mas banayad na animation */
-.loader-logo-main {
-    width: 120px;
-    height: auto;
-    margin-bottom: 2rem;
-    animation: gentlePulse 2s ease-in-out infinite;
+/* --- CENTER LOGO --- */
+.logo-center {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    z-index: 2;
+    animation: logoPulse 2s ease-in-out infinite;
+    /* Optional: glass effect behind logo */
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    padding: 15px;
+    backdrop-filter: blur(5px);
 }
 
-/* Kalsada kung saan dadaan ang mga sasakyan */
-.road {
-    width: 150%; /* Mas malapad para makalabas ng screen ang sasakyan */
-    height: 4px;
-    background-image: linear-gradient(to right, #4A6CF7 40%, transparent 40%);
-    background-size: 20px 4px;
-    position: relative;
-    left: -25%; /* I-gitna ang kalsada */
-    margin-top: 2rem;
-    margin-bottom: 1.5rem;
-}
-
-/* Container para sa bawat sasakyan at animation nito */
-.vehicle-container {
+/* --- ORBIT RING --- */
+.orbit-ring {
     position: absolute;
-    bottom: 5px; /* I-posisyon sa ibabaw ng kalsada */
-    left: -100px; /* Magsimula sa labas ng screen */
-    width: 80px;
-    animation-name: driveAcross;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    width: 220px;
+    height: 220px;
+    border: 2px dashed rgba(74, 108, 247, 0.3);
+    /* Primary color low opacity */
+    border-radius: 50%;
+    box-sizing: border-box;
 }
 
-.vehicle-container svg {
-    width: 100%;
+/* --- ROTATING CONTAINER --- */
+.orbit-container {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    animation: orbitSpin 4s linear infinite;
+    z-index: 3;
+}
+
+/* --- TRUCK ICON --- */
+/* The truck sits at the top of the rotating container */
+.truck-orbit-icon {
+    position: absolute;
+    top: -15px;
+    /* Adjust to sit on the line. 220px height -> radius 110px. Top is 0. */
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+    /* Rotate 90deg to face direction of travel (clockwise) */
+    width: 40px;
     height: auto;
-    fill: #E2E8F0; /* Kulay ng mga sasakyan */
+    fill: #4A6CF7;
+    /* Primary Brand Color */
+    filter: drop-shadow(0 0 5px rgba(74, 108, 247, 0.5));
 }
 
-/* Iba-ibang animation para mas mukhang totoo */
-.vehicle-1 {
-    animation-duration: 6s;
-    animation-delay: 0s;
+/* --- TEXT BELOW --- */
+.loader-text-container {
+    margin-top: -40px;
+    /* Pull up closer since loader-content is big */
+    text-align: center;
+    z-index: 4;
 }
 
-.vehicle-2 {
-    animation-duration: 8s;
-    animation-delay: 2s;
-    width: 65px; /* Medyo mas maliit na van */
-}
-
-.vehicle-3 {
-    animation-duration: 7s;
-    animation-delay: 4.5s;
-}
-
-/* Text sa ilalim ng kalsada */
-#loader-text {
+.loader-system-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: 3px;
     color: #E2E8F0;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 1px;
     text-transform: uppercase;
-    min-height: 20px; /* Para hindi gumalaw ang layout */
-    transition: opacity 0.5s ease;
+    margin-bottom: 0.5rem;
 }
 
-/* --- KEYFRAME ANIMATIONS --- */
-@keyframes gentlePulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+body:not(.dark-mode) .loader-system-name {
+    color: #1e293b;
 }
 
-@keyframes driveAcross {
-    0% {
-        transform: translateX(0);
+#loader-text {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    min-height: 1.5rem;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes orbitSpin {
+    from {
+        transform: rotate(0deg);
     }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes logoPulse {
+
+    0%,
     100% {
-        /* Tatakbo patawid ng screen at lampas pa para mawala */
-        transform: translateX(calc(400px + 250px)); 
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(0.95);
+        opacity: 0.8;
     }
 }
-
