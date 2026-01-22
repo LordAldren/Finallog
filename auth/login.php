@@ -138,32 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <div id="loading-overlay">
       <div class="loader-content">
-          <!-- Driving Truck Animation -->
-          <div class="truck-wrapper">
-               <svg class="truck-svg" viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg">
-                  <g class="truck-group">
-                      <!-- Speed Lines -->
-                      <g class="speed-lines">
-                          <line x1="10" y1="65" x2="40" y2="65" />
-                          <line x1="0" y1="80" x2="35" y2="80" />
-                          <line x1="10" y1="95" x2="40" y2="95" />
-                      </g>
-                      
-                      <!-- Truck Body -->
-                      <path class="truck-body" d="M60 50 H140 V110 H60 Z" />
-                      <path class="truck-cab" d="M140 70 H170 L180 110 H140 V70" />
-                      <path class="truck-window" d="M145 75 H165 L170 90 H145 V75" />
 
-                      <!-- Wheels -->
-                      <circle class="truck-wheel" cx="90" cy="110" r="14" />
-                      <circle class="truck-wheel" cx="160" cy="110" r="14" />
-                  </g>
-                  <!-- Road -->
-                  <g class="road-group">
-                      <line class="road-line-segment" x1="50" y1="128" x2="190" y2="128" />
-                  </g>
-              </svg>
-          </div>
 
           <!-- Logo Image Below Truck -->
           <div class="logo-wrapper-below">
