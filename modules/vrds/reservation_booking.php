@@ -215,7 +215,115 @@ $available_drivers = $conn->query("SELECT id, name FROM drivers WHERE status = '
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservation Booking | VRDS</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
-</head>
+    <style>
+        /* --- PREMIUM FORM STYLES --- */
+        .filter-card {
+            background: linear-gradient(145deg, var(--bg-panel), rgba(0, 0, 0, 0.2));
+            border: var(--border-tech);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-glow);
+            border-radius: 8px;
+        }
+
+        .filter-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            align-items: end;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border-radius: 4px;
+            font-family: var(--font-data);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background: rgba(0, 114, 255, 0.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 114, 255, 0.2);
+        }
+
+        /* --- CENTERED MODAL STYLES --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-panel);
+            margin: 0;
+            padding: 2rem;
+            border: var(--border-tech);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            
+            /* Center positioning */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .modal h2 {
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--text-muted);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        .close-button:hover {
+            color: var(--primary-color);
+        }
+    </style>
 
 <body>
     <?php include '../../includes/sidebar.php'; ?>
@@ -236,34 +344,34 @@ $available_drivers = $conn->query("SELECT id, name FROM drivers WHERE status = '
 
         <div class="table-section">
             <h3>Reservation Booking</h3>
-            <div class="card" style="margin-bottom: 1.5rem; padding: 1.5rem;">
+            <div class="filter-card">
                 <form action="reservation_booking.php" method="GET" class="filter-form">
-                    <div class="form-group"><label>Search</label><input type="text" name="search" class="form-control"
-                            placeholder="Code or Client" value="<?php echo htmlspecialchars($search_query); ?>"></div>
-                    <div class="form-group"><label>Start Date</label><input type="date" name="start_date"
-                            class="form-control" value="<?php echo htmlspecialchars($start_date); ?>"></div>
-                    <div class="form-group"><label>End Date</label><input type="date" name="end_date"
-                            class="form-control" value="<?php echo htmlspecialchars($end_date); ?>"></div>
-                    <div class="form-group"><label>Status</label>
+                    <div class="form-group">
+                        <label>Search</label>
+                        <input type="text" name="search" class="form-control" placeholder="Code or Client" value="<?php echo htmlspecialchars($search_query); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" name="start_date" class="form-control" value="<?php echo htmlspecialchars($start_date); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" name="end_date" class="form-control" value="<?php echo htmlspecialchars($end_date); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
                         <select name="status" class="form-control">
-                            <option value="">All</option>
-                            <option value="Pending" <?php if ($status_filter == 'Pending')
-                                echo 'selected'; ?>>Pending
-                            </option>
-                            <option value="Confirmed" <?php if ($status_filter == 'Confirmed')
-                                echo 'selected'; ?>>
-                                Confirmed</option>
-                            <option value="Rejected" <?php if ($status_filter == 'Rejected')
-                                echo 'selected'; ?>>Rejected
-                            </option>
-                            <option value="Cancelled" <?php if ($status_filter == 'Cancelled')
-                                echo 'selected'; ?>>
-                                Cancelled</option>
+                            <option value="">All Statuses</option>
+                            <option value="Pending" <?php if ($status_filter == 'Pending') echo 'selected'; ?>>Pending</option>
+                            <option value="Confirmed" <?php if ($status_filter == 'Confirmed') echo 'selected'; ?>>Confirmed</option>
+                            <option value="Rejected" <?php if ($status_filter == 'Rejected') echo 'selected'; ?>>Rejected</option>
+                            <option value="Cancelled" <?php if ($status_filter == 'Cancelled') echo 'selected'; ?>>Cancelled</option>
                         </select>
                     </div>
-                    <div class="form-actions" style="grid-column: 1 / -1;"><button type="submit"
-                            class="btn btn-primary">Filter</button><a href="reservation_booking.php"
-                            class="btn btn-secondary">Reset</a></div>
+                    <div class="form-actions" style="display: flex; gap: 10px; align-items: flex-end;">
+                        <button type="submit" class="btn btn-primary" style="height: 42px;">Filter</button>
+                        <a href="reservation_booking.php" class="btn btn-secondary" style="height: 42px; line-height: 20px;">Reset</a>
+                    </div>
                 </form>
             </div>
 
@@ -427,6 +535,13 @@ $available_drivers = $conn->query("SELECT id, name FROM drivers WHERE status = '
                 if (closeBtn) closeBtn.onclick = () => modal.style.display = 'none';
                 const cancelBtn = modal.querySelector('.cancelBtn');
                 if (cancelBtn) cancelBtn.onclick = () => modal.style.display = 'none';
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
             });
 
             // View Modal Logic
