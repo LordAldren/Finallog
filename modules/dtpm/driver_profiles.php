@@ -153,7 +153,108 @@ $behavior_logs_json = json_encode($behavior_logs);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driver Profiles | DTPM</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
-</head>
+    <style>
+        /* --- PREMIUM FORM STYLES --- */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border-radius: 4px;
+            font-family: var(--font-data);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background: rgba(0, 114, 255, 0.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 114, 255, 0.2);
+            outline: none;
+        }
+
+        .form-control option {
+            background-color: var(--bg-panel);
+            color: var(--text-main);
+        }
+
+        /* --- CENTERED MODAL STYLES --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-panel);
+            margin: 0;
+            padding: 2rem;
+            border: var(--border-tech);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            
+            /* Center positioning */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .modal h2 {
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--text-muted);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        .close-button:hover {
+            color: var(--primary-color);
+        }
+    </style>
 
 <body>
     <?php include '../../includes/sidebar.php'; ?>
@@ -356,6 +457,13 @@ $behavior_logs_json = json_encode($behavior_logs);
                 const cancelBtn = modal.querySelector('.cancelBtn');
                 if (closeBtn) { closeBtn.addEventListener('click', () => modal.style.display = 'none'); }
                 if (cancelBtn) { cancelBtn.addEventListener('click', () => modal.style.display = 'none'); }
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
             });
             const driverModal = document.getElementById("driverModal");
             document.getElementById("addDriverBtn").addEventListener("click", () => {
