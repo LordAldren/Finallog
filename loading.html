@@ -251,7 +251,8 @@
                     document.body.style.opacity = '0';
                     document.body.style.transition = 'opacity 1s cubic-bezier(0.4, 0, 0.2, 1)';
                     setTimeout(() => {
-                        window.location.href = 'auth/login.php';
+                        // Use a relative path from the current directory
+                        window.location.href = './auth/login.php';
                     }, 1000);
                 }, 1200);
                 return;
