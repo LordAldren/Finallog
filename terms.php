@@ -155,7 +155,7 @@
                     <p class="last-updated">Last Updated: January 2025</p>
 
                     <div class="terms-content">
-                        <p>Welcome to our Vehicle Reservation and Dispatch System. By accessing or using our platform, you agree to be bound by these Terms of Service and our Privacy Policy.</p>
+                        <p>Welcome to our Vehicle Reservation and Dispatch System. By accessing or using our platform, you agree to be bound by these <a href="terms.php">Terms of Service</a> and our <a href="privacy.php">Privacy Policy</a>.</p>
 
                         <h2 class="section-title"><i class="fas fa-gavel"></i> 1. Acceptance of Terms</h2>
                         <p>By accessing this system, you confirm that you have read, understood, and agree to be bound by these terms. If you do not agree with any part of these terms, you may not use our services.</p>

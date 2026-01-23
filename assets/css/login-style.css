@@ -363,6 +363,8 @@ footer {
     color: var(--text-muted);
     font-size: 0.8rem;
     letter-spacing: 1px;
+    z-index: 20;
+    pointer-events: auto;
 }
 
 footer a {
